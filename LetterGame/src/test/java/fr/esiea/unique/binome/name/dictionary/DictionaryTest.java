@@ -1,4 +1,4 @@
-package fr.esiea.unique.binome.name.dictionary;
+package fr.esiea.unique.Ranaivo_Remy.dictionary;
 
 import org.junit.Before;
 
