@@ -1,4 +1,4 @@
-package fr.esiea.unique.Ranaivo_Remy.dictionary;
+package fr.esiea.Ranaivo_Remy.dictionary;
 
 /**
  * Created on 16/01/17.

@@ -1,7 +1,8 @@
-package fr.esiea.unique.Ranaivo_Remy.dictionary;
+package fr.esiea.Ranaivo_Remy.dictionary;
 
 import org.junit.Before;
 
+import fr.esiea.Ranaivo_Remy.dictionary.IDictionary;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
