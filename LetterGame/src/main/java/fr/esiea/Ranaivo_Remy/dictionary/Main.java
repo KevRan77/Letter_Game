@@ -7,28 +7,31 @@ public class Main {
 
 	public static void main(String[] args) {
 		
+		int nbJoueur;
+		int i;
 		Scanner sc = new Scanner(System.in);
-		Joueur joueur1 = new Joueur();
-		Joueur joueur2 = new Joueur();
-		
-		System.out.println("Entrez le nom du joueur 1 : ");
-		String name1 = sc.next();
-		System.out.println("Entrez le nom du joueur 2 : ");
-		String name2 = sc.next();
-		
-		Alphabet alphabet = new Alphabet();
-		Alphabet alphabet2 = new Alphabet();
+		do{
+		System.out.print("Veuillez entrer le nombre de joueurs : ");
+		nbJoueur = sc.nextInt();
+		}while(nbJoueur < 1 || nbJoueur > 5);
+		Joueur[] joueur = new Joueur[nbJoueur];
+		String[] a = new String[nbJoueur];
+		Alphabet[] alphabet = new Alphabet[nbJoueur];
 		ArrayList potCommun = new ArrayList();
 		
-		System.out.println("Lettre aléatoire du joueur "+joueur1.getName(name1)+" : "+ alphabet.getLetter());
-		System.out.println("Lettre aléatoire du joueur "+joueur2.getName(name2)+" : "+ alphabet2.getLetter());
+		for(i = 1; i <= nbJoueur; i++){
+			joueur[i-1] = new Joueur();
+			System.out.println("Entrez le nom du joueur "+i+" : ");
+			a[i-1] = sc.next();
+			
+			alphabet[i-1] = new Alphabet();
+		}
 		
-		potCommun.add(alphabet.getLetter());
-		potCommun.add(alphabet2.getLetter());
-		
+		for(i=0; i < nbJoueur; i++){
+			System.out.println("Lettre aléatoire du joueur "+joueur[i].getName(a[i])+" : "+ alphabet[i].getLetter());
+			potCommun.add(alphabet[i].getLetter());
+		}
 		System.out.println("Pot commun : "+potCommun);
-		
-		
 	
 	}
 
