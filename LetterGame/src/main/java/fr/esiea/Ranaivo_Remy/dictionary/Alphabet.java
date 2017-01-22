@@ -19,21 +19,27 @@ import java.util.Random;
 
 public enum Alphabet
 {
-    A(120,1), B(20,2), C(15,3), D(16,4), E(150,5);/* F(20,6), G(23,7), H(18,8), I(122,9),
-    J(17,10), K(14,11), L(20,12), M(30,13), N(18,14), O(95,15), P(25,16), Q(10,17), R(25,18),
-    S(60,19), T(55,20), U(103,21), V(20,22), W(2,23), X(3,24), Y(4,25), Z(3,26);*/
+    A(120,1,'A'), B(20,2,'B'), C(15,3,'C'), D(16,4,'D'), E(150,5,'E'); /*F(20,6,'F'), G(23,7,'G'), H(18,8,'H'), I(122,9,'I'),
+    J(17,10,'J'), K(14,11,'K'), L(20,12,'L'), M(30,13,'M'), N(18,14,'N'), O(95,15,'O'), P(25,16,'P'), Q(10,17,'Q'), R(25,18,'R'),
+    S(60,19,'S'), T(55,20,'T'), U(103,21,'U'), V(20,22,'V'), W(2,23,'W'), X(3,24,'X'), Y(4,25,'Y'), Z(3,26,'Z');*/
     
     private final int occ;
     private final int numLetter;
+    private final char letter;
     
-    private Alphabet(int occ, int numLetter)
+    private Alphabet(int occ, int numLetter, char letter)
     {
         this.occ = occ;
         this.numLetter = numLetter;
+        this.letter = letter;
     }
     
     public int getValue(){
     	return numLetter;
+    }
+    
+    public char getChar(){
+    	return letter;
     }
     
     private static char[] tab = null;
