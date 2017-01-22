@@ -51,6 +51,10 @@ public class Main {
 			if(letterChosen == 'E'){
 				alphabet[i] = Alphabet.E;
 			}
+			if(letterChosen == 'F'){
+				alphabet[i] = Alphabet.F;
+			}
+			
 			/*if(alphabet[j].getChar() == letterChosen){
 				System.out.println("getChar : "+alphabet[i].getChar()+ "random : "+letterChosen);
 			}*/
@@ -63,14 +67,14 @@ public class Main {
 		}
 		int bubbleInd;
 		String bubblePlayer;
-		for(j=1; j < nbJoueur; j++){
+		for(j=0; j <= nbJoueur; j++){
 		for(i=1; i < nbJoueur; i++){
 			if(start[i-1] > start[i]){
 				bubbleInd = start[i];
 				start[i] = start[i-1];
 				start[i-1] = bubbleInd;
 				
-				bubblePlayer = joueur[i].getName(a[i]);
+				bubblePlayer = playerName[i];
 				playerName[i] = playerName[i-1];
 				playerName[i-1] = bubblePlayer;
 					}
