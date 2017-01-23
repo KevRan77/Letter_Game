@@ -1,13 +1,14 @@
 package fr.esiea.Ranaivo_Remy.dictionary;
 
-public class Joueur {
+public class Player {
 	String name;
 	
-	public Joueur(){
-		
+	public Player(){
 	}
 	
 	public String getName(String name){
 		return this.name = name;
 	}
+
+	
 }
