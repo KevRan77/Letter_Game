@@ -1,19 +1,18 @@
 package fr.esiea.Ranaivo_Remy.dictionary;
 
-import java.io.BufferedReader;
+/*import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Scanner;*/
 
 public class Main {
 
 	public static void main(String[] args) {
-		Session session = new Session();
-		Player player = new Player();
-		Alphabet[] alphabet = Alphabet.values();
+		
+		//Player player = new Player();
 		Game game = new Game();
-		game.getNameEnter();
+		
 		
 		/*int nbPlayer;
 		int i;
@@ -26,7 +25,9 @@ public class Main {
 		String[] a = new String[nbPlayer];
 		Alphabet[] alphabet2 = new Alphabet[nbPlayer];
 		Alphabet[] alphabet = Alphabet.values();
+		
 		int[] start = new int[nbPlayer];
+		
 		ArrayList potCommun = new ArrayList();
 		String[] playerName = new String[nbPlayer];
 		
