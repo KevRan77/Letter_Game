@@ -2,7 +2,7 @@ package fr.esiea.Ranaivo_Remy.dictionary;
 
 import java.util.Scanner;
 
-public class Session {
+public class Session extends Player{
 	// *****  Variables  ***** \\ 
 	String choiceNbPlayer = "Veuillez entrer le nombre de joueurs : ";
 	String name;

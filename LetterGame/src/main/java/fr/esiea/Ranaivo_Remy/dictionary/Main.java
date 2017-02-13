@@ -1,5 +1,7 @@
 package fr.esiea.Ranaivo_Remy.dictionary;
 
+import java.util.Scanner;
+
 /*import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,7 +16,7 @@ public class Main {
 		Game game = new Game();
 		
 		
-		/*int nbPlayer;
+	/*	int nbPlayer;
 		int i;
 		Scanner sc = new Scanner(System.in);
 		do{

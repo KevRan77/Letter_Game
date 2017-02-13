@@ -10,11 +10,11 @@ public enum Alphabet{
     
     // *****  Variables  ***** \\ 
     private final int occ;
-    private final int numLetter;
-    private final char letter;
+    private int numLetter;
+    private char letter;
     
     private static char[] tab = null;
-    private static Random rand = new Random();
+    private static Random rand = new Random();	
     
     // ***** Méthodes ***** \\
     private Alphabet(int occ, int numLetter, char letter){
@@ -29,6 +29,13 @@ public enum Alphabet{
     
     public char getChar(){
     	return letter;
+    }
+    
+    public void setChar(char letter){
+    	this.letter = letter;
+    }
+    public void setValue(int numLetter){
+    	this.numLetter = numLetter;
     }
     
     private static void fillTab(){
