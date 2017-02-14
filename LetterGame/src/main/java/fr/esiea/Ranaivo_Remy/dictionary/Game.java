@@ -1,31 +1,84 @@
 package fr.esiea.Ranaivo_Remy.dictionary;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class Game extends Session {
+public class Game implements Session, Player {
 	
+	String choiceNbPlayer = "Veuillez entrer le nombre de joueurs : ";
+	String name;
+	String name2;
+	
+	int keyEnter;                                  	
+	int numberPlayer;
+	
+	Player[] player = new Player[numberPlayer];
+	String[] playerName = new String[numberPlayer];
+	
+	Scanner sc = new Scanner(System.in);
 	
 	public Game(){
+		
 		// *****  Variables  ***** \\ 
 		String []names = getNameEnter();		
 		Alphabet[] alphabet = Alphabet.values();
-		Alphabet[] alphabet2 = new Alphabet[200];
-		int nbPlayer = numberPlayer;
+		Alphabet[] alphabet2 = new Alphabet[numberPlayer];
 		
-		start(alphabet, alphabet2, nbPlayer, names);
+		
+		
+		start(alphabet, alphabet2, numberPlayer, names, player, playerName);
 		
 		
 	}
 	
-	public void start(Alphabet[] alphabet, Alphabet[] alphabet2, int nbPlayer, String[] names){
+	public String getName(String name2){
+		return this.name2 = name2;
+	}
+	
+	public void getChoiceNbPlayer(){
+		System.out.print(this.choiceNbPlayer);
+	}
+	
+	public int getInt(){
+		return this.keyEnter = sc.nextInt();
+	}
+	
+	public String getString(){
+		return this.name = sc.next();
+	}
+	
+	public int showNbPlayer(){
+		do{
+			
+			numberPlayer = getInt(); 
+		}while(numberPlayer < 2);
+		
+		return numberPlayer;
+	}
+	
+	public String[] getNameEnter(){
+		int i;
+		getChoiceNbPlayer();
+		int nbPlayer = showNbPlayer();
+		
+		String[] tabName = new String[nbPlayer];
+		
+		for(i = 1; i <= nbPlayer;i++){
+			System.out.println("Entrez le nom du Joueur "+i+" : ");
+			tabName[i-1] = getString();
+		}
+		return tabName;
+	}
+	
+	public void start(Alphabet[] alphabet, Alphabet[] alphabet2, int nbPlayer, String[] names, Player[] player, String[] playerName){
 		char letterChosen;
 		int j;
 		int i;
+		String a;
 		ArrayList abc = new ArrayList();
 		ArrayList finalBag = new ArrayList();
-		Player[] player = new Player[nbPlayer];
-		int[] tabPlayerStart = new int[nbPlayer];
-		String[] playerName = new String[nbPlayer];
+		int[] tabPlayerStart = new int[numberPlayer];
+		
 		
 		for(i=0; i < nbPlayer; i++){
 			
@@ -47,7 +100,7 @@ public class Game extends Session {
 			System.out.println("Valeur du joueur " +i+ " : " +tabPlayerStart[i]);
 			
 			//playerName[i] = player[i].getName(names[i]);
-			//System.out.println("Joueur qui commence : "+ playerName[0]);
+		//	System.out.println("Joueur qui commence : "+ playerName[i]);
 			
 	}
 		System.out.println("Pot commun : "+finalBag);
