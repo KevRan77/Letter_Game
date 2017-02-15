@@ -69,17 +69,3 @@ public enum Alphabet{
     }
 }
 
-/*public enum Alphabet {
-char Alphabet;
- 	
-
-	public Alphabet(){
-		Random r = new Random();
-		this.Alphabet = (char)(r.nextInt(26) + 'a');
-	}
-	
-	public char getAlphabet(){
-		return this.Alphabet;
-	}
-	
-}*/
