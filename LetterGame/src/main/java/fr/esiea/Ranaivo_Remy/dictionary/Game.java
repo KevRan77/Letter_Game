@@ -112,32 +112,96 @@ public class Game implements IGame {
 	public void startGame(Alphabet[] alphabet, Alphabet[] alphabet2){
 		setNameEnter();
 		firstDraw(this.tabPlayer, alphabet, alphabet2);
-		Player player = whoStart();
+		Player player = whoStart(this.tabPlayer);
 		printMutualBag();
 		playerStarterDraw(player);
+		//String word = sc.next();
+		turnPlayer(this.tabPlayer);
+		//System.out.println(verifLetterMutualBag(word, this.potCommun));
 	}
 	
 	//Affiche quel est le joueur qui commence
-	public Player whoStart(){
-		sortArray();
-		System.out.println("Le joueur "+this.tabPlayer[0].name+" commence.");
-		return this.tabPlayer[0];
+	public Player whoStart(Player[] tabPlayer){
+		tabPlayer = sortArray(tabPlayer);
+		tabPlayer[0].play = true;
+		System.out.println("Le joueur "+tabPlayer[0].name+" commence.");
+		return tabPlayer[0];
 	}
 	
-	//Tri a bulle sur le tableau de joueur pour connaître celui à la plus petite lettre
-	public void sortArray(){
-		int i,j;
-		Player flag;
+	public void turnPlayer(Player[] tabPlayer){
 		
-		for(i=0; i< this.tabPlayer.length; i++){
-			for(j=1; j < this.tabPlayer.length; j++){
-				if(this.tabPlayer[j-1].val > this.tabPlayer[j].val ){
-					flag = this.tabPlayer[j];
-					this.tabPlayer[j] = this.tabPlayer[j-1];
-					this.tabPlayer[j-1] = flag;
+		for(int i = 0; i < tabPlayer.length; i++){
+			if(tabPlayer[i].play == true){
+				System.out.println(tabPlayer[i].name+" joue");
+				int choice = choiceAction();
+				if(choice ==2){
+					passTurn(i,tabPlayer);
+					turnPlayer(tabPlayer);
 				}
 			}
 		}
+		
+	}
+	
+	public void passTurn(int idPlayer, Player[] tabPlayer){
+		if(tabPlayer.length-1 == idPlayer){
+			tabPlayer[idPlayer].play = false;
+			tabPlayer[0].play = true;
+		}
+		else{
+			tabPlayer[idPlayer].play = false;
+			tabPlayer[idPlayer+1].play = true;
+		}
+	}
+	
+	public int choiceAction(){
+		int choice;
+		System.out.println("1) Taper un mot");
+		System.out.println("2) Passer son tour");
+		 
+		//do{
+			choice = sc.nextInt();
+		//}while(choice != 1 || choice !=2);
+		
+		return choice;
+		
+	}
+	
+	public Boolean verifLetterMutualBag(String word, ArrayList<Character> potCommun){
+		//Boolean flag = false;
+		char[] tabChar;
+		tabChar = word.toCharArray();
+		
+		for(int i =0; i< tabChar.length; i++){
+			for(int j = 0; j < potCommun.size(); j++){
+				if(tabChar[i] == potCommun.get(j)){
+					potCommun.remove(j);
+					j--;
+					break;
+				}else if(j == potCommun.size()-1){
+					return false;
+				}
+			}
+		}
+		
+		return true;
+	}
+	
+	//Tri a bulle sur le tableau de joueur pour connaître celui à la plus petite lettre
+	public Player[] sortArray(Player[] tabPlayer){
+		int i,j;
+		Player flag;
+		
+		for(i=0; i< tabPlayer.length; i++){
+			for(j=1; j < tabPlayer.length; j++){
+				if(tabPlayer[j-1].val > tabPlayer[j].val ){
+					flag = tabPlayer[j];
+					tabPlayer[j] = tabPlayer[j-1];
+					tabPlayer[j-1] = flag;
+				}
+			}
+		}
+		return tabPlayer;
 	}
 	
 	//Ajout de lettre dans le pot commun

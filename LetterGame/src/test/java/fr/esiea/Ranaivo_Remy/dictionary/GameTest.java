@@ -59,12 +59,40 @@ public class GameTest {
 
 	@Test
 	public final void testWhoStart() {
-		fail("Not yet implemented"); // TODO
+		Game test = new Game();
+		Player[] tabPlayer = new Player[2];
+		tabPlayer[0] = new Player();
+		tabPlayer[1] = new Player();
+		
+		tabPlayer[0].val = 20;
+		tabPlayer[1].val = 10;
+		
+		tabPlayer[0].name = "joueur1";
+		tabPlayer[1].name = "joueur2";
+		
+		assertSame("Le joueur2 commence", tabPlayer[1],test.whoStart(tabPlayer));	 
+		
+		
 	}
 
 	@Test
 	public final void testSortArray() {
-		fail("Not yet implemented"); // TODO
+		Game test = new Game();
+		Player[] tabPlayer = new Player[2];
+		tabPlayer[0] = new Player();
+		tabPlayer[1] = new Player();
+		
+		tabPlayer[0].setVal(20);
+		tabPlayer[1].setVal(10);
+				test.sortArray(tabPlayer);
+				
+		boolean flag = false;
+		
+		if(tabPlayer[0].val < tabPlayer[1].val){
+			flag = true;
+		}
+		
+		assertTrue("Test réussi", flag);
 	}
 
 	@Test

@@ -4,11 +4,13 @@ public class Player{
 	String name;
 	int val;
 	int score;
+	Boolean play;
 	
 	public Player(){
 		this.name = null;
 		this.val = 0;
 		this.score = 0;
+		this.play = false;
 	}
 	
 	public String getName(){
@@ -35,6 +37,13 @@ public class Player{
 		this.score = score;
 	}
 
+	public Boolean getPlay(){
+		return this.play;
+	}
+	
+	public void setPlay(Boolean play){
+		this.play = play;
+	}
 	
 	
 }
