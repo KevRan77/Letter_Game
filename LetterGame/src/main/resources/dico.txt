@@ -3064,7 +3064,7 @@ atmosphères
 atoll
 atolls
 atome
-ames
+atomes
 atomiseur
 atomiste
 atomistes

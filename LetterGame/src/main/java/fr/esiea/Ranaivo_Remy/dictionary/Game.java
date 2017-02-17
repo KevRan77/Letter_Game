@@ -1,5 +1,8 @@
 package fr.esiea.Ranaivo_Remy.dictionary;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -78,7 +81,7 @@ public class Game implements IGame {
 		for(int i =0; i<2;i++){
 			letterChosen = Alphabet.random();
 			mutualBag(letterChosen);
-			System.out.println("Le joueur "+player.name+" a piochÃ© : "+letterChosen);
+			System.out.println("Le joueur "+player.name+" a pioché : "+letterChosen);
 		}
 		printMutualBag();
 	}
@@ -97,7 +100,8 @@ public class Game implements IGame {
 				if(alphabet[j].getChar()==letterChosen){
 					mutualBag(letterChosen);
 					tabPlayer[i].val = alphabet[j].getValue();
-					System.out.println("Le joueur "+tabPlayer[i].name+" a piochÃ© la lettre "+letterChosen);
+					System.out.println("Le joueur "+tabPlayer[i].name+" a pioché la lettre "+letterChosen);
+					alphabet[j].setChar('0');
 				}
 			}
 		}
@@ -116,8 +120,9 @@ public class Game implements IGame {
 		printMutualBag();
 		playerStarterDraw(player);
 		//String word = sc.next();
-		turnPlayer(this.tabPlayer);
+		//turnPlayer(this.tabPlayer);
 		//System.out.println(verifLetterMutualBag(word, this.potCommun));
+		findWord();
 	}
 	
 	//Affiche quel est le joueur qui commence
@@ -142,6 +147,39 @@ public class Game implements IGame {
 		}
 		
 	}
+	
+	public static String removeAccent(String source) {
+		return Normalizer.normalize(source, Normalizer.Form.NFD).replaceAll("[\u0300-\u036F]", "");
+	}
+	
+	
+	public void findWord(){
+		String word = ""; 
+		int val = 0;
+	        word = sc.next();
+	        word = removeAccent(word);
+	        System.out.println(word);
+	        Scanner file;
+			try {
+				file = new Scanner(new File("C:/Users/Nora/git/Letter_Game/LetterGame/src/main/resources/dico.txt"));
+				while(file.hasNextLine()){
+					String line = file.nextLine().toUpperCase();
+					line = removeAccent(line);
+					int size = line.length();
+					if(line.indexOf(word.toUpperCase()) != -1 && word.length() == size && verifLetterMutualBag(line,this.potCommun) == true){
+						System.out.println("Le mot est dans le dico et utilise les lettres du pot commun");
+			            val = 1;
+			            break;
+			        }
+			     }
+			        if(val == 0){
+			            System.out.println("Le mot n'est pas dans le dico");
+			        }
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}      
+	    }
+	
 	
 	public void passTurn(int idPlayer, Player[] tabPlayer){
 		if(tabPlayer.length-1 == idPlayer){
