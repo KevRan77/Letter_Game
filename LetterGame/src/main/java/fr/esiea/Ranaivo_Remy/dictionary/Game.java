@@ -1,6 +1,16 @@
 package fr.esiea.Ranaivo_Remy.dictionary;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StreamTokenizer;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Game implements IGame {
@@ -88,6 +98,7 @@ public class Game implements IGame {
 		int i,j;
 		char letterChosen;
 		
+		
 		for(i=0; i<tabPlayer.length; i++){
 			letterChosen = Alphabet.random();	
 			alphabet[i].setChar(letterChosen);
@@ -95,6 +106,7 @@ public class Game implements IGame {
 	
 			for(j=0;j<25;j++){	
 				if(alphabet[j].getChar()==letterChosen){
+					System.out.println(alphabet[i].getChar());
 					mutualBag(letterChosen);
 					tabPlayer[i].val = alphabet[j].getValue();
 					System.out.println("Le joueur "+tabPlayer[i].name+" a pioché la lettre "+letterChosen);
@@ -116,8 +128,10 @@ public class Game implements IGame {
 		printMutualBag();
 		playerStarterDraw(player);
 		//String word = sc.next();
-		turnPlayer(this.tabPlayer);
+		//turnPlayer(this.tabPlayer);
 		//System.out.println(verifLetterMutualBag(word, this.potCommun));
+		//findWord();
+		//test();
 	}
 	
 	//Affiche quel est le joueur qui commence
@@ -142,6 +156,34 @@ public class Game implements IGame {
 		}
 		
 	}
+	
+	
+	
+	public void findWord(Player[] tabPlayer, int i){
+		String word = ""; 
+		int val = 0;
+	        word = sc.next();
+	        Scanner file;
+			try {
+				file = new Scanner(new File("C:/Users/Nora/git/Letter_Game/LetterGame/src/main/resources/dico.txt"));
+				while(file.hasNextLine()){
+					String line = file.nextLine();
+					int size = line.length();
+					if(line.indexOf(word) != -1 && word.length() == size && verifLetterMutualBag(line,this.potCommun) == true){
+						System.out.println("Le mot est dans le dico et utilise les lettres du pot commun");
+			            val = 1;
+			            tabPlayer[i].score++;
+			            break;
+			        }
+			     }
+			        if(val == 0){
+			            System.out.println("Le mot n'est pas dans le dico");
+			        }
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}      
+	    }   
 	
 	public void passTurn(int idPlayer, Player[] tabPlayer){
 		if(tabPlayer.length-1 == idPlayer){
