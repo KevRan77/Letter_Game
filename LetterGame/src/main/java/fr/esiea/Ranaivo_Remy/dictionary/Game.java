@@ -136,15 +136,16 @@ public class Game implements IGame {
 	public void turnPlayer(Player[] tabPlayer){
 		
 		for(int i = 0; i < tabPlayer.length; i++){
-			if(tabPlayer[i].play == true){
+			if(tabPlayer[i].play == true && tabPlayer[i].score <2){
 				System.out.println(tabPlayer[i].name+" joue");
-				int choice = choiceAction();
+				int choice = choiceAction(i);
 				if(choice ==2){
 					passTurn(i,tabPlayer);
-					turnPlayer(tabPlayer);
-				}else if(choice == 1){
-					turnPlayer(tabPlayer);
+					//turnPlayer(tabPlayer);
 				}
+			}else if (tabPlayer[i].score == 2){
+				System.out.println("fin du game");
+				break;
 			}
 		}
 		
@@ -155,12 +156,11 @@ public class Game implements IGame {
 	}
 	
 	
-	public void findWord(){
+	public void findWord(int i){
 		String word = ""; 
 		int val = 0;
 	        word = sc.next();
 	        word = removeAccent(word);
-	        System.out.println(word);
 	        Scanner file;
 			try {
 				file = new Scanner(new File("C:/Users/Nora/git/Letter_Game/LetterGame/src/main/resources/dico.txt"));
@@ -169,7 +169,10 @@ public class Game implements IGame {
 					line = removeAccent(line);
 					int size = line.length();
 					if(line.indexOf(word.toUpperCase()) != -1 && word.length() == size && verifLetterMutualBag(line,this.potCommun) == true){
-						System.out.println("Le mot est dans le dico et utilise les lettres du pot commun");
+							tabPlayer[i].score++;
+							System.out.println("Score de "+tabPlayer[i].name+" : "+tabPlayer[i].score);
+						
+						
 			            val = 1;
 			            
 			        }
@@ -194,20 +197,19 @@ public class Game implements IGame {
 		}
 	}
 	
-	public int choiceAction(){
+	public int choiceAction(int i){
 		int choice;
 		do{
-		System.out.println("1) Taper un mot");
+		System.out.println("1) Taper un mot avec les lettres "+potCommun);
 		System.out.println("2) Passer son tour");
 		 
 		
 			choice = sc.nextInt();
 			switch(choice){
 			case 1:
-				System.out.println("Taper un mot avec les lettres : "+potCommun);
-				findWord();
+				System.out.println("Taper un mot : ");
+				findWord(i);
 				break;
-				//return choice;
 			case 2: 
 				return choice;
 				
