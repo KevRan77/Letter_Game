@@ -1,16 +1,6 @@
 package fr.esiea.Ranaivo_Remy.dictionary;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StreamTokenizer;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Game implements IGame {
@@ -27,9 +17,9 @@ public class Game implements IGame {
 	
 	Scanner sc = new Scanner(System.in);
 	
-	// *****  Méthodes ***** \\
+	// *****  MÃ©thodes ***** \\
 	
-	//Methode Game qui lance la première partie du jeu
+	//Methode Game qui lance la premiÃ¨re partie du jeu
 	public Game(){
 		
 		Alphabet[] alphabet = Alphabet.values();
@@ -43,17 +33,17 @@ public class Game implements IGame {
 		System.out.print(this.choiceNbPlayer);
 	}
 	
-	//Récupère un entier entré au clavier (nombre de joueurs)
+	//RÃ©cupÃ¨re un entier entrÃ© au clavier (nombre de joueurs)
 	public int getInt(){
 		return this.keyEnter = sc.nextInt();
 	}
 	
-	//Récupère un mot écris au clavier (nom du joueur)
+	//RÃ©cupÃ¨re un mot Ã©cris au clavier (nom du joueur)
 	public String getString(){
 		return sc.next();
 	}
 	
-	//Permet à l'utilisateur d'entrer le nombre de joueur pour la partie
+	//Permet Ã  l'utilisateur d'entrer le nombre de joueur pour la partie
 	public void setNbPlayer(){
 		do{
 			this.numberPlayer = getInt(); 
@@ -69,7 +59,7 @@ public class Game implements IGame {
 		}
 	}
 	
-	//Récuèpre le nom de chaque joueur et stocke dans un tableau
+	//RÃ©cuÃ¨pre le nom de chaque joueur et stocke dans un tableau
 	public void setNameEnter(){
 		int i;
 		getChoiceNbPlayer();
@@ -88,16 +78,15 @@ public class Game implements IGame {
 		for(int i =0; i<2;i++){
 			letterChosen = Alphabet.random();
 			mutualBag(letterChosen);
-			System.out.println("Le joueur "+player.name+" a pioché : "+letterChosen);
+			System.out.println("Le joueur "+player.name+" a piochÃ© : "+letterChosen);
 		}
 		printMutualBag();
 	}
 	
-	//Attribut une lettre aléatoire aux joueurs et remplit ces lettres dans le pot commun
+	//Attribut une lettre alÃ©atoire aux joueurs et remplit ces lettres dans le pot commun
 	public void firstDraw(Player[] tabPlayer, Alphabet[] alphabet,Alphabet[] alphabet2 ){
 		int i,j;
 		char letterChosen;
-		
 		
 		for(i=0; i<tabPlayer.length; i++){
 			letterChosen = Alphabet.random();	
@@ -106,10 +95,9 @@ public class Game implements IGame {
 	
 			for(j=0;j<25;j++){	
 				if(alphabet[j].getChar()==letterChosen){
-					System.out.println(alphabet[i].getChar());
 					mutualBag(letterChosen);
 					tabPlayer[i].val = alphabet[j].getValue();
-					System.out.println("Le joueur "+tabPlayer[i].name+" a pioché la lettre "+letterChosen);
+					System.out.println("Le joueur "+tabPlayer[i].name+" a piochÃ© la lettre "+letterChosen);
 				}
 			}
 		}
@@ -128,10 +116,8 @@ public class Game implements IGame {
 		printMutualBag();
 		playerStarterDraw(player);
 		//String word = sc.next();
-		//turnPlayer(this.tabPlayer);
+		turnPlayer(this.tabPlayer);
 		//System.out.println(verifLetterMutualBag(word, this.potCommun));
-		//findWord();
-		//test();
 	}
 	
 	//Affiche quel est le joueur qui commence
@@ -156,34 +142,6 @@ public class Game implements IGame {
 		}
 		
 	}
-	
-	
-	
-	public void findWord(Player[] tabPlayer, int i){
-		String word = ""; 
-		int val = 0;
-	        word = sc.next();
-	        Scanner file;
-			try {
-				file = new Scanner(new File("C:/Users/Nora/git/Letter_Game/LetterGame/src/main/resources/dico.txt"));
-				while(file.hasNextLine()){
-					String line = file.nextLine();
-					int size = line.length();
-					if(line.indexOf(word) != -1 && word.length() == size && verifLetterMutualBag(line,this.potCommun) == true){
-						System.out.println("Le mot est dans le dico et utilise les lettres du pot commun");
-			            val = 1;
-			            tabPlayer[i].score++;
-			            break;
-			        }
-			     }
-			        if(val == 0){
-			            System.out.println("Le mot n'est pas dans le dico");
-			        }
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}      
-	    }   
 	
 	public void passTurn(int idPlayer, Player[] tabPlayer){
 		if(tabPlayer.length-1 == idPlayer){
@@ -229,7 +187,7 @@ public class Game implements IGame {
 		return true;
 	}
 	
-	//Tri a bulle sur le tableau de joueur pour connaître celui à la plus petite lettre
+	//Tri a bulle sur le tableau de joueur pour connaÃ®tre celui Ã  la plus petite lettre
 	public Player[] sortArray(Player[] tabPlayer){
 		int i,j;
 		Player flag;

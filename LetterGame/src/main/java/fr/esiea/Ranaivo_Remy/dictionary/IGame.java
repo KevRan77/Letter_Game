@@ -2,7 +2,6 @@ package fr.esiea.Ranaivo_Remy.dictionary;
 
 import java.util.ArrayList;
 
-
 public interface IGame{
 	
 	public void getChoiceNbPlayer();

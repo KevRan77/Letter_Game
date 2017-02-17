@@ -4,9 +4,9 @@ import java.util.Random;
 
 public enum Alphabet{
 	
-    a(120,1,'a'), b(20,2,'b'), c(15,3,'c'), d(16,4,'d'), e(150,5,'e'), f(20,6,'f'), g(23,7,'g'), h(18,8,'h'), i(122,9,'i'),
-    j(17,10,'j'), k(14,11,'k'), l(20,12,'l'),m(30,13,'m'), n(18,14,'n'), o(95,15,'o'), p(25,16,'p'), q(10,17,'q'), r(25,18,'r'),
-    s(60,19,'s'), t(55,20,'t'), u(103,21,'u'), v(20,22,'v'), w(2,23,'w'), x(3,24,'x'), y(4,25,'y'), z(3,26,'z');
+    A(120,1,'a'), B(20,2,'b'), C(15,3,'c'), D(16,4,'d'), E(150,5,'e'), F(20,6,'f'), G(23,7,'g'), H(18,8,'h'), I(122,9,'i'),
+    J(17,10,'j'), K(14,11,'k'), L(20,12,'l'), M(30,13,'m'), N(18,14,'n'), O(95,15,'o'), P(25,16,'p'), Q(10,17,'q'), R(25,18,'r'),
+    S(60,19,'s'), T(55,20,'t'), U(103,21,'u'), V(20,22,'v'), W(2,23,'w'), X(3,24,'x'), Y(4,25,'y'), Z(3,26,'z');
     
     // *****  Variables  ***** \\ 
     private final int occ;
@@ -16,7 +16,7 @@ public enum Alphabet{
     private static char[] tab = null;
     private static Random rand = new Random();	
     
-    // ***** Méthodes ***** \\
+    // ***** MÃ©thodes ***** \\
     private Alphabet(int occ, int numLetter, char letter){
         this.occ = occ;
         this.numLetter = numLetter;
