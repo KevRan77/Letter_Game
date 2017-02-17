@@ -1,16 +1,20 @@
 package fr.esiea.Ranaivo_Remy.dictionary;
 
+import java.util.ArrayList;
+
 public class Player{
 	String name;
 	int val;
 	int score;
 	Boolean play;
+	ArrayList<String> listWord = new ArrayList<String>();
 	
 	public Player(){
 		this.name = null;
 		this.val = 0;
 		this.score = 0;
 		this.play = false;
+		this.listWord = null;
 	}
 	
 	public String getName(){
@@ -21,6 +25,13 @@ public class Player{
 		this.name = name;
 	}
 	
+	public ArrayList<String> getListWord(){
+		return this.listWord;
+	}
+	
+	public void setListWord(ArrayList<String> listWord){
+		this.listWord = listWord;
+	}
 	public int getVal(){
 		return this.val;
 	}

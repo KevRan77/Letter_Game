@@ -18,6 +18,9 @@ public class Game implements IGame {
 	
 	ArrayList<Character> potCommun = new ArrayList<Character>();
 	
+	ArrayList<String> listWord = new ArrayList<String>();
+	
+	
 	Scanner sc = new Scanner(System.in);
 	
 	// *****  MÃ©thodes ***** \\
@@ -75,7 +78,7 @@ public class Game implements IGame {
 		}
 	}
 	
-	void playerStarterDraw(Player player){
+	public void playerStarterDraw(Player player){
 		char letterChosen;
 		
 		for(int i =0; i<2;i++){
@@ -138,14 +141,8 @@ public class Game implements IGame {
 		for(int i = 0; i < tabPlayer.length; i++){
 			if(tabPlayer[i].play == true && tabPlayer[i].score <2){
 				System.out.println(tabPlayer[i].name+" joue");
-				int choice = choiceAction(i);
-				if(choice ==2){
-					passTurn(i,tabPlayer);
-					//turnPlayer(tabPlayer);
-				}
-			}else if (tabPlayer[i].score == 2){
-				System.out.println("fin du game");
-				break;
+				playerStarterDraw(tabPlayer[i]);
+				choiceAction(i);
 			}
 		}
 		
@@ -169,16 +166,16 @@ public class Game implements IGame {
 					line = removeAccent(line);
 					int size = line.length();
 					if(line.indexOf(word.toUpperCase()) != -1 && word.length() == size && verifLetterMutualBag(line,this.potCommun) == true){
-							tabPlayer[i].score++;
-							System.out.println("Score de "+tabPlayer[i].name+" : "+tabPlayer[i].score);
-						
-						
-			            val = 1;
-			            
+						tabPlayer[i].score++;
+						tabPlayer[i].setListWord(listWord);
+						tabPlayer[i].listWord.add(line);
+						//System.out.println("list : "+tabPlayer[i].listWord);
+						System.out.println("Score de "+tabPlayer[i].name+" : "+tabPlayer[i].score);
+			            val = 1;  
 			        }
 			     }
 			        if(val == 0){
-			            System.out.println("Le mot n'est pas dans le dico");
+			            System.out.println("Le mot n'est pas valide");
 			        }
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -200,9 +197,11 @@ public class Game implements IGame {
 	public int choiceAction(int i){
 		int choice;
 		do{
+		//System.out.println(tabPlayer[i].name+" joue");
 		System.out.println("1) Taper un mot avec les lettres "+potCommun);
 		System.out.println("2) Passer son tour");
-		 
+		System.out.println("3) Afficher la liste des mots");
+		
 		
 			choice = sc.nextInt();
 			switch(choice){
@@ -211,11 +210,16 @@ public class Game implements IGame {
 				findWord(i);
 				break;
 			case 2: 
+				passTurn(i,tabPlayer);
+				turnPlayer(tabPlayer);
 				return choice;
+				//break;
+			case 3:
+				System.out.println("Liste des mots : "+tabPlayer[i].listWord);
 				
 			}
-		}while(choice != 1 || choice !=2);
-		
+		}while((choice != 1 || choice !=2 || choice !=3) && tabPlayer[i].score <3);
+		System.out.println("Fin du game");
 		return choice;
 		
 	}
