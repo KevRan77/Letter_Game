@@ -22,7 +22,7 @@ public class Game implements IGame {
 	
 	// *****  MÃ©thodes ***** \\
 	
-	//Methode Game qui lance la premiÃ¨re partie du jeu
+	//Methode Game qui lance la première partie du jeu
 	public Game(){
 		
 		Alphabet[] alphabet = Alphabet.values();
@@ -120,9 +120,9 @@ public class Game implements IGame {
 		printMutualBag();
 		playerStarterDraw(player);
 		//String word = sc.next();
-		//turnPlayer(this.tabPlayer);
+		turnPlayer(this.tabPlayer);
 		//System.out.println(verifLetterMutualBag(word, this.potCommun));
-		findWord();
+		//findWord();
 	}
 	
 	//Affiche quel est le joueur qui commence
@@ -141,6 +141,8 @@ public class Game implements IGame {
 				int choice = choiceAction();
 				if(choice ==2){
 					passTurn(i,tabPlayer);
+					turnPlayer(tabPlayer);
+				}else if(choice == 1){
 					turnPlayer(tabPlayer);
 				}
 			}
@@ -169,7 +171,7 @@ public class Game implements IGame {
 					if(line.indexOf(word.toUpperCase()) != -1 && word.length() == size && verifLetterMutualBag(line,this.potCommun) == true){
 						System.out.println("Le mot est dans le dico et utilise les lettres du pot commun");
 			            val = 1;
-			            break;
+			            
 			        }
 			     }
 			        if(val == 0){
@@ -194,19 +196,30 @@ public class Game implements IGame {
 	
 	public int choiceAction(){
 		int choice;
+		do{
 		System.out.println("1) Taper un mot");
 		System.out.println("2) Passer son tour");
 		 
-		//do{
+		
 			choice = sc.nextInt();
-		//}while(choice != 1 || choice !=2);
+			switch(choice){
+			case 1:
+				System.out.println("Taper un mot avec les lettres : "+potCommun);
+				findWord();
+				break;
+				//return choice;
+			case 2: 
+				return choice;
+				
+			}
+		}while(choice != 1 || choice !=2);
 		
 		return choice;
 		
 	}
 	
 	public Boolean verifLetterMutualBag(String word, ArrayList<Character> potCommun){
-		//Boolean flag = false;
+		
 		char[] tabChar;
 		tabChar = word.toCharArray();
 		
