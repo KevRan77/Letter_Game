@@ -18,7 +18,7 @@ public class Game implements IGame {
 	
 	ArrayList<Character> potCommun = new ArrayList<Character>();
 	
-	ArrayList<String> listWord = new ArrayList<String>();
+	//ArrayList<String> listWord = new ArrayList<String>();
 	
 	
 	Scanner sc = new Scanner(System.in);
@@ -62,6 +62,7 @@ public class Game implements IGame {
 	public void initTabPlayer(){
 		for(int i = 0; i<this.numberPlayer; i++){
 			this.tabPlayer[i] = new Player();
+			//this.tabPlayer[i].setListWord(tabPlayer[i].listWord);
 		}
 	}
 	
@@ -131,7 +132,7 @@ public class Game implements IGame {
 		firstDraw(this.tabPlayer, alphabet, alphabet2);
 		Player player = whoStart(this.tabPlayer);
 		printMutualBag();
-		playerStarterDraw(player);
+		//playerStarterDraw(player);
 		//String word = sc.next();
 		turnPlayer(this.tabPlayer);
 		//System.out.println(verifLetterMutualBag(word, this.potCommun));
@@ -177,7 +178,7 @@ public class Game implements IGame {
 					int size = line.length();
 					if(line.indexOf(word.toUpperCase()) != -1 && word.length() == size && verifLetterMutualBag(line,this.potCommun) == true){
 						tabPlayer[i].score++;
-						tabPlayer[i].setListWord(listWord);
+						tabPlayer[i].setListWord(tabPlayer[i].listWord);
 						tabPlayer[i].listWord.add(line);
 						//System.out.println("list : "+tabPlayer[i].listWord);
 						System.out.println("Score de "+tabPlayer[i].name+" : "+tabPlayer[i].score);
@@ -229,7 +230,7 @@ public class Game implements IGame {
 				System.out.println("Liste des mots : "+tabPlayer[i].listWord);
 				
 			}
-		}while((choice != 1 || choice !=2 || choice !=3) && tabPlayer[i].score <3);
+		}while((choice != 1 || choice !=2 || choice !=3) && tabPlayer[i].score <4);
 		System.out.println("Fin du game");
 		return choice;
 		

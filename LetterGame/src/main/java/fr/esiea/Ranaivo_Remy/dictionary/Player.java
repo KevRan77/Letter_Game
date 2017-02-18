@@ -14,7 +14,7 @@ public class Player{
 		this.val = 0;
 		this.score = 0;
 		this.play = false;
-		this.listWord = null;
+		this.listWord.add("null");
 	}
 	
 	public String getName(){
