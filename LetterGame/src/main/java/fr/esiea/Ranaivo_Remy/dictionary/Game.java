@@ -78,6 +78,16 @@ public class Game implements IGame {
 		}
 	}
 	
+	public void oneDraw(Player player){
+		char letterChosen;
+	
+		letterChosen = Alphabet.random();
+		mutualBag(letterChosen);
+		System.out.println("Le joueur "+player.name+" a pioché : "+letterChosen);
+		
+		printMutualBag();
+	}
+	
 	public void playerStarterDraw(Player player){
 		char letterChosen;
 		
@@ -172,6 +182,7 @@ public class Game implements IGame {
 						//System.out.println("list : "+tabPlayer[i].listWord);
 						System.out.println("Score de "+tabPlayer[i].name+" : "+tabPlayer[i].score);
 			            val = 1;  
+			        	oneDraw(tabPlayer [i]);
 			        }
 			     }
 			        if(val == 0){
