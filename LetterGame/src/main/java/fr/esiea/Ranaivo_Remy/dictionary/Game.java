@@ -62,6 +62,7 @@ public class Game implements IGame {
 	public void initTabPlayer(){
 		for(int i = 0; i<this.numberPlayer; i++){
 			this.tabPlayer[i] = new Player();
+			this.tabPlayer[i].listWord.remove("null");
 			//this.tabPlayer[i].setListWord(tabPlayer[i].listWord);
 		}
 	}
@@ -150,7 +151,7 @@ public class Game implements IGame {
 	public void turnPlayer(Player[] tabPlayer){
 		
 		for(int i = 0; i < tabPlayer.length; i++){
-			if(tabPlayer[i].play == true && tabPlayer[i].score <2){
+			if(tabPlayer[i].play == true && tabPlayer[i].score <3){
 				System.out.println(tabPlayer[i].name+" joue");
 				playerStarterDraw(tabPlayer[i]);
 				choiceAction(i);
@@ -166,16 +167,37 @@ public class Game implements IGame {
 	
 	public void findWord(int i){
 		String word = ""; 
+		String word2 = "";
 		int val = 0;
 	        word = sc.next();
 	        word = removeAccent(word);
+	       /* word2 = sc.next();
+	        word2 = removeAccent(word2);
+	        System.out.println(word2.startsWith(word));*/
 	        Scanner file;
 			try {
-				file = new Scanner(new File("C:/Users/Nora/git/Letter_Game/LetterGame/src/main/resources/dico.txt"));
+				file = new Scanner(new File("C:/Users/Kevin-R/git/Letter_Game/LetterGame/src/main/resources/dico.txt"));
 				while(file.hasNextLine()){
 					String line = file.nextLine().toUpperCase();
 					line = removeAccent(line);
 					int size = line.length();
+				/*	if(word.length() ){}
+					tabPlayer[i].setListWord(tabPlayer[i].listWord);
+					for(int j = 0 ; j < numberPlayer; j++){
+						for(int count = 0; count < tabPlayer[j].listWord.size(); count++ ){
+							int lastElement = tabPlayer[i].listWord.size() - 1;
+							String wordCompare = tabPlayer[j].getListWord().get(count);
+							String wordWritten = tabPlayer[i].getListWord().get(lastElement);
+							Boolean resultOfCompare = wordWritten.startsWith(wordCompare);
+							if(resultOfCompare == true && wordWritten.length() > wordCompare.length()){
+								tabPlayer[j].getListWord().remove(count);
+								tabPlayer[j].score--;
+								tabPlayer[i].listWord.add(wordCompare);
+								tabPlayer[i].score++;
+							}
+						}
+					}	*/
+					
 					if(line.indexOf(word.toUpperCase()) != -1 && word.length() == size && verifLetterMutualBag(line,this.potCommun) == true){
 						tabPlayer[i].score++;
 						tabPlayer[i].setListWord(tabPlayer[i].listWord);
@@ -188,10 +210,11 @@ public class Game implements IGame {
 			     }
 			        if(val == 0){
 			            System.out.println("Le mot n'est pas valide");
+			            
 			        }
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
-			}      
+			}     
 	    }
 	
 	
@@ -230,7 +253,7 @@ public class Game implements IGame {
 				System.out.println("Liste des mots : "+tabPlayer[i].listWord);
 				
 			}
-		}while((choice != 1 || choice !=2 || choice !=3) && tabPlayer[i].score <4);
+		}while((choice != 1 || choice !=2 || choice !=3) && tabPlayer[i].score <3);
 		System.out.println("Fin du game");
 		return choice;
 		
