@@ -1,4 +1,8 @@
-package fr.esiea.Ranaivo_Remy.Game;
+package fr.esiea.Ranaivo_Remy.Game.Core;
+
+import fr.esiea.Ranaivo_Remy.Game.Components.Alphabet;
+import fr.esiea.Ranaivo_Remy.Game.Components.MutualBag;
+import fr.esiea.Ranaivo_Remy.Game.Components.Player;
 
 public class LetterDraw {
 	
@@ -9,7 +13,7 @@ public class LetterDraw {
 	
 		letterChosen = Alphabet.random();
 		mutualBag.mutualBagAddLetter(letterChosen);
-		System.out.println("Le joueur "+player.name+" a pioché : "+letterChosen);
+		System.out.println("Le joueur "+player.getName()+" a pioché : "+letterChosen);
 		mutualBag.printMutualBag();
 	}
 	
@@ -19,7 +23,7 @@ public class LetterDraw {
 		for(int i =0; i<2;i++){
 			letterChosen = Alphabet.random();
 			mutualBag.mutualBagAddLetter(letterChosen);
-			System.out.println("Le joueur "+player.name+" a pioché : "+letterChosen);
+			System.out.println("Le joueur "+player.getName()+" a pioché : "+letterChosen);
 		}
 		mutualBag.printMutualBag();
 	}
@@ -37,8 +41,8 @@ public class LetterDraw {
 			for(j=0;j<25;j++){	
 				if(alphabet[j].getChar()==letterChosen){
 					mutualBag.mutualBagAddLetter(letterChosen);
-					tabPlayer[i].val = alphabet[j].getValue();
-					System.out.println("Le joueur "+tabPlayer[i].name+" a pioché la lettre "+letterChosen);
+					tabPlayer[i].setVal(alphabet[j].getValue());
+					System.out.println("Le joueur "+tabPlayer[i].getName()+" a pioché la lettre "+letterChosen);
 					alphabet[j].setChar('0');
 				}
 			}

@@ -1,6 +1,12 @@
-package fr.esiea.Ranaivo_Remy.Game;
+package fr.esiea.Ranaivo_Remy.Game.Core;
 
 import java.util.Scanner;
+
+import fr.esiea.Ranaivo_Remy.Game.Components.Alphabet;
+import fr.esiea.Ranaivo_Remy.Game.Components.MutualBag;
+import fr.esiea.Ranaivo_Remy.Game.Components.Player;
+import fr.esiea.Ranaivo_Remy.Game.Components.Words;
+import fr.esiea.Ranaivo_Remy.Game.Interface.IGame;
 
 public class Game implements IGame {
 	// *****  Variables  ***** \\
@@ -68,7 +74,7 @@ public class Game implements IGame {
 		//Design Pattern : iterator
 		for(Player iterator : this.tabPlayer){
 			System.out.println("Entrez le nom du Joueur : ");
-			iterator.name = getString();
+			iterator.setName(getString());
 		}
 		
 	}
@@ -90,16 +96,16 @@ public class Game implements IGame {
 	//Affiche quel est le joueur qui commence
 	public Player whoStart(Player[] tabPlayer){
 		tabPlayer = sortArray(tabPlayer);
-		tabPlayer[0].play = true;
-		System.out.println("Le joueur "+tabPlayer[0].name+" commence.");
+		tabPlayer[0].setPlay(true);
+		System.out.println("Le joueur "+tabPlayer[0].getName()+" commence.");
 		return tabPlayer[0];
 	}
 	
 	//Permet au joueur de jouer 
 	public void turnPlayer(Player[] tabPlayer){	
 		for(int i = 0; i < tabPlayer.length; i++){
-			if(tabPlayer[i].play == true && tabPlayer[i].score <10){
-				System.out.println(tabPlayer[i].name+" joue");
+			if(tabPlayer[i].getPlay() == true && tabPlayer[i].getScore() <10){
+				System.out.println(tabPlayer[i].getName()+" joue");
 				letterDraw.playerStarterDraw(tabPlayer[i], mutualBag);
 				choiceAction(i);
 			}
@@ -110,12 +116,12 @@ public class Game implements IGame {
 	//Passe le tour du joueur
 	public void passTurn(int idPlayer, Player[] tabPlayer){
 		if(tabPlayer.length-1 == idPlayer){
-			tabPlayer[idPlayer].play = false;
-			tabPlayer[0].play = true;
+			tabPlayer[idPlayer].setPlay(false);
+			tabPlayer[0].setPlay(true);
 		}
 		else{
-			tabPlayer[idPlayer].play = false;
-			tabPlayer[idPlayer+1].play = true;
+			tabPlayer[idPlayer].setPlay(false);
+			tabPlayer[idPlayer+1].setPlay(true);
 		}
 	}
 	
@@ -157,7 +163,7 @@ public class Game implements IGame {
 				System.out.println("Liste des mots : "+tabPlayer[i].listWord);
 				
 			}
-		}while((choice != 1 || choice !=2 || choice !=3) && tabPlayer[i].score <10);
+		}while((choice != 1 || choice !=2 || choice !=3) && tabPlayer[i].getScore() <10);
 		System.out.println("Fin du game");
 		return choice;
 		
@@ -171,7 +177,7 @@ public class Game implements IGame {
 		
 		for(i=0; i< tabPlayer.length; i++){
 			for(j=1; j < tabPlayer.length; j++){
-				if(tabPlayer[j-1].val > tabPlayer[j].val ){
+				if(tabPlayer[j-1].getVal() > tabPlayer[j].getVal() ){
 					flag = tabPlayer[j];
 					tabPlayer[j] = tabPlayer[j-1];
 					tabPlayer[j-1] = flag;

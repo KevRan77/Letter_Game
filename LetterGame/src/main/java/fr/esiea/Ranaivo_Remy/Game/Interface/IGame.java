@@ -1,4 +1,7 @@
-package fr.esiea.Ranaivo_Remy.Game;
+package fr.esiea.Ranaivo_Remy.Game.Interface;
+
+import fr.esiea.Ranaivo_Remy.Game.Components.Alphabet;
+import fr.esiea.Ranaivo_Remy.Game.Components.Player;
 
 
 

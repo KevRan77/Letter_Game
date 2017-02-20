@@ -1,13 +1,13 @@
-package fr.esiea.Ranaivo_Remy.Game;
+package fr.esiea.Ranaivo_Remy.Game.Components;
 
 import java.util.ArrayList;
 
 public class Player{
-	String name;
+	 String name;
 	int val;
 	int score;
 	Boolean play;
-	ArrayList<String> listWord = new ArrayList<String>();
+	public ArrayList<String> listWord = new ArrayList<String>();
 	
 	
 	

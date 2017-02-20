@@ -1,5 +1,7 @@
 package fr.esiea.Ranaivo_Remy.Game;
 
+import fr.esiea.Ranaivo_Remy.Game.Core.Game;
+
 
 
 public class Main {

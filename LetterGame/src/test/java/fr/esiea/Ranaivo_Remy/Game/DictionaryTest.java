@@ -2,7 +2,7 @@ package fr.esiea.Ranaivo_Remy.Game;
 
 import org.junit.Before;
 
-import fr.esiea.Ranaivo_Remy.Game.IDictionary;
+import fr.esiea.Ranaivo_Remy.Game.Interface.IDictionary;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 

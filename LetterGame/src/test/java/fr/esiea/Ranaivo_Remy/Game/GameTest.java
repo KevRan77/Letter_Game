@@ -5,8 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.esiea.Ranaivo_Remy.Game.Game;
-import fr.esiea.Ranaivo_Remy.Game.Player;
+import fr.esiea.Ranaivo_Remy.Game.Components.Player;
+import fr.esiea.Ranaivo_Remy.Game.Core.Game;
 
 public class GameTest {
 
@@ -67,11 +67,11 @@ public class GameTest {
 		tabPlayer[0] = new Player();
 		tabPlayer[1] = new Player();
 		
-		tabPlayer[0].val = 20;
-		tabPlayer[1].val = 10;
+		tabPlayer[0].setVal(20);
+		tabPlayer[1].setVal(10);
 		
-		tabPlayer[0].name = "joueur1";
-		tabPlayer[1].name = "joueur2";
+		tabPlayer[0].setName("joueur1");
+		tabPlayer[1].setName("joueur2");
 		
 		assertSame("Le joueur2 commence", tabPlayer[1],test.whoStart(tabPlayer));	 
 		
@@ -91,7 +91,7 @@ public class GameTest {
 				
 		boolean flag = false;
 		
-		if(tabPlayer[0].val < tabPlayer[1].val){
+		if(tabPlayer[0].getVal() < tabPlayer[1].getVal()){
 			flag = true;
 		}
 		

@@ -1,4 +1,4 @@
-package fr.esiea.Ranaivo_Remy.Game;
+package fr.esiea.Ranaivo_Remy.Game.Components;
 
 import java.util.Random;
 

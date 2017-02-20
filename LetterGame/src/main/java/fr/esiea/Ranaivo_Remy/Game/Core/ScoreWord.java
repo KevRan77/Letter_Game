@@ -1,4 +1,4 @@
-package fr.esiea.Ranaivo_Remy.Game;
+package fr.esiea.Ranaivo_Remy.Game.Core;
 
 public class ScoreWord {
 	String word;
