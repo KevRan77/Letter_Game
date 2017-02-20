@@ -1,4 +1,4 @@
-package fr.esiea.Ranaivo_Remy.dictionary;
+package fr.esiea.Ranaivo_Remy.Game;
 
 import java.util.Scanner;
 
@@ -9,7 +9,8 @@ public class Game implements IGame {
 	Player[] tabPlayer = new Player[numberPlayer];
 	String[] playerName = new String[numberPlayer];
 	
-	MutualBag mutualBag = new MutualBag();
+	//Singleton
+	MutualBag mutualBag = MutualBag.getInstanceMutualBag();
 	LetterDraw letterDraw = new LetterDraw();
 	Words words = new Words();
 	
@@ -20,9 +21,8 @@ public class Game implements IGame {
 	//Méthode Game qui lance la première partie du jeu
 	public Game(){
 		Alphabet[] alphabet = Alphabet.values();
-		Alphabet[] alphabet2 = new Alphabet[numberPlayer];
 
-		startGame(alphabet, alphabet2 );
+		startGame(alphabet);
 	}
 	
 	//Récupère un mot écris au clavier (nom du joueur)
@@ -60,22 +60,24 @@ public class Game implements IGame {
 	
 	//Récupère le nom de chaque joueur et stocke dans un tableau
 	public void setNameEnter(){
-		int i;
+		//int i;
 		setNbPlayer();
 		initTabPlayer();
 		initMutualBag();
 		
-		for(i = 0; i < this.tabPlayer.length ;i++){
-			System.out.println("Entrez le nom du Joueur "+i+" : ");
-			this.tabPlayer[i].name = getString();
+		//Design Pattern : iterator
+		for(Player iterator : this.tabPlayer){
+			System.out.println("Entrez le nom du Joueur : ");
+			iterator.name = getString();
 		}
+		
 	}
 	
 
 	//Regroupement des fonctions pour lancer le jeu
-	public void startGame(Alphabet[] alphabet, Alphabet[] alphabet2){
+	public void startGame(Alphabet[] alphabet){
 		setNameEnter();
-		letterDraw.firstDraw(this.tabPlayer, alphabet, alphabet2, mutualBag);
+		letterDraw.firstDraw(this.tabPlayer, alphabet, mutualBag);
 		Player player = whoStart(this.tabPlayer);
 		mutualBag.printMutualBag();
 		//playerStarterDraw(player);

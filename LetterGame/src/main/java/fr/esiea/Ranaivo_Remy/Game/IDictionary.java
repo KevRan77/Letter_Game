@@ -1,4 +1,4 @@
-package fr.esiea.Ranaivo_Remy.dictionary;
+package fr.esiea.Ranaivo_Remy.Game;
 
 /**
  * Created on 16/01/17.

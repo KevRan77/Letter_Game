@@ -1,4 +1,4 @@
-package fr.esiea.Ranaivo_Remy.dictionary;
+package fr.esiea.Ranaivo_Remy.Game;
 
 import java.util.ArrayList;
 
@@ -9,6 +9,8 @@ public class Player{
 	Boolean play;
 	ArrayList<String> listWord = new ArrayList<String>();
 	
+	
+	
 	public Player(){
 		this.name = null;
 		this.val = 0;
@@ -16,6 +18,7 @@ public class Player{
 		this.play = false;
 		this.listWord.add("null");
 	}
+	
 	
 	public String getName(){
 		return this.name;

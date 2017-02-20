@@ -1,9 +1,12 @@
-package fr.esiea.Ranaivo_Remy.dictionary;
+package fr.esiea.Ranaivo_Remy.Game;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import fr.esiea.Ranaivo_Remy.Game.Game;
+import fr.esiea.Ranaivo_Remy.Game.Player;
 
 public class GameTest {
 

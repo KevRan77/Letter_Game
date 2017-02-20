@@ -1,4 +1,4 @@
-package fr.esiea.Ranaivo_Remy.dictionary;
+package fr.esiea.Ranaivo_Remy.Game;
 
 import java.util.Random;
 
@@ -8,6 +8,8 @@ public enum Alphabet{
     J(17,10,'j'), K(14,11,'k'), L(20,12,'l'), M(30,13,'m'), N(18,14,'n'), O(95,15,'o'), P(25,16,'p'), Q(10,17,'q'), R(25,18,'r'),
     S(60,19,'s'), T(55,20,'t'), U(103,21,'u'), V(20,22,'v'), W(2,23,'w'), X(3,24,'x'), Y(4,25,'y'), Z(3,26,'z');
     
+    
+    
     // *****  Variables  ***** \\ 
     private final int occ;
     private int numLetter;
@@ -16,7 +18,7 @@ public enum Alphabet{
     private static char[] tab = null;
     private static Random rand = new Random();	
     
-    // ***** MÃ©thodes ***** \\
+    // ***** Méthodes ***** \\
     private Alphabet(int occ, int numLetter, char letter){
         this.occ = occ;
         this.numLetter = numLetter;

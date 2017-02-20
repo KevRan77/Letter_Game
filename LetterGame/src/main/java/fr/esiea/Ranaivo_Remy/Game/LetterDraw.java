@@ -1,4 +1,4 @@
-package fr.esiea.Ranaivo_Remy.dictionary;
+package fr.esiea.Ranaivo_Remy.Game;
 
 public class LetterDraw {
 	
@@ -25,7 +25,7 @@ public class LetterDraw {
 	}
 	
 	//Attribut une lettre alétoire aux joueurs et remplit ces lettres dans le pot commun
-	public void firstDraw(Player[] tabPlayer, Alphabet[] alphabet,Alphabet[] alphabet2, MutualBag mutualBag ){
+	public void firstDraw(Player[] tabPlayer, Alphabet[] alphabet, MutualBag mutualBag ){
 		int i,j;
 		char letterChosen;
 		

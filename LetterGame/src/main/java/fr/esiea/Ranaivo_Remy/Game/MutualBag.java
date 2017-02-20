@@ -1,13 +1,18 @@
-package fr.esiea.Ranaivo_Remy.dictionary;
+package fr.esiea.Ranaivo_Remy.Game;
 
 import java.util.ArrayList;
 
 public class MutualBag {
 	ArrayList<Character> mutualBag = new ArrayList<Character>();
+	 //Singleton
+    private static MutualBag instanceMutualBag = new MutualBag();
 	
 	public MutualBag(){
 		this.mutualBag.add(null);
 	}
+
+	//Singleton
+	public static MutualBag getInstanceMutualBag() { return instanceMutualBag; }
 	
 	public ArrayList<Character> getMutualBag(){
 		return this.mutualBag;
@@ -51,28 +56,31 @@ public class MutualBag {
 			return flag;
 		}
 		
-	 
-	public void sortTabIndex(int[] tabIndex){
-		int i,j;
-		int flag;
-		
-		for(i=0; i< tabIndex.length; i++){
-			for(j=1; j < tabIndex.length; j++){
-				if(tabIndex[j-1] < tabIndex[j] ){
-					flag = tabIndex[j];
-					tabIndex[j] = tabIndex[j-1];
-					tabIndex[j-1] = flag;
-				}
-			}
-		}
-	}
-	
+
 	//Affiche le contenu du pot commun
 		public void printMutualBag(){
 			System.out.println("Pot commun : "+this.mutualBag);
 		}
 	
 	
+		
+		/*	 
+		public void sortTabIndex(int[] tabIndex){
+			int i,j;
+			int flag;
+			
+			for(i=0; i< tabIndex.length; i++){
+				for(j=1; j < tabIndex.length; j++){
+					if(tabIndex[j-1] < tabIndex[j] ){
+						flag = tabIndex[j];
+						tabIndex[j] = tabIndex[j-1];
+						tabIndex[j-1] = flag;
+					}
+				}
+			}
+		}
+		*/	
+		
 	/*
 	 * 	
 	 public static boolean findDoublon(final int[] tabIndex)
