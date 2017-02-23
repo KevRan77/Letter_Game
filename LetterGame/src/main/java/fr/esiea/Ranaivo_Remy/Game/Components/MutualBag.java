@@ -51,8 +51,8 @@ public class MutualBag {
 				mutualBag.addAll(tmpPotCommun);
 			}
 			//potCommun = tmpPotCommun;
-			System.out.println("pot commun test :"+mutualBag);
-			System.out.println(tmpPotCommun);
+		//	System.out.println("pot commun test :"+mutualBag);
+		//	System.out.println(tmpPotCommun);
 			return flag;
 		}
 		

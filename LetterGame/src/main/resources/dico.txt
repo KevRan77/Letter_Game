@@ -12994,6 +12994,7 @@ daïmios
 daïquiri
 daïquiris
 dc
+de
 de amicis
 de profundis
 de santis
@@ -31488,7 +31489,7 @@ oyats
 oye
 ozone
 oïl
-p.
+p
 p.m.
 pa
 pacage
@@ -39336,6 +39337,7 @@ röntgens
 s
 s'
 sa
+se
 sabayon
 sabayons
 sabbat
@@ -45045,6 +45047,7 @@ tsuica
 tsunami
 tsé-tsé
 tu
+tuc
 tu autem
 tub
 tuba

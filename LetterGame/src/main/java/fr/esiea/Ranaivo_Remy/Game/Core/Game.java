@@ -79,6 +79,15 @@ public class Game implements IGame {
 		
 	}
 	
+	public void printWordPlayer(Player[] tabPlayer){
+		System.out.println("\n***************************");
+		for(Player i : this.tabPlayer){
+			System.out.println("Mots du joueur "+i.getName()+" : "+i.getListWord()+" et score : "+i.getScore());
+		}
+		System.out.println("***************************\n");
+
+	}
+	
 
 	//Regroupement des fonctions pour lancer le jeu
 	public void startGame(Alphabet[] alphabet){
@@ -86,6 +95,7 @@ public class Game implements IGame {
 		letterDraw.firstDraw(this.tabPlayer, alphabet, mutualBag);
 		Player player = whoStart(this.tabPlayer);
 		mutualBag.printMutualBag();
+		
 		//playerStarterDraw(player);
 		//String word = sc.next();
 		turnPlayer(this.tabPlayer);
@@ -129,7 +139,7 @@ public class Game implements IGame {
 	public void printMenu(){
 		System.out.println("1) Taper un mot avec les lettres "+mutualBag.getMutualBag());
 		System.out.println("2) Passer son tour");
-		System.out.println("3) Afficher la liste des mots");
+		System.out.println("3) Voler un mot");
 	}
 	
 	
@@ -137,6 +147,7 @@ public class Game implements IGame {
 	public int choiceAction(int i){
 		int choice = 0;
 		do{
+			printWordPlayer( this.tabPlayer);
 			printMenu();
 		
 			if (sc.hasNextInt()) choice = sc.nextInt();
@@ -152,18 +163,51 @@ public class Game implements IGame {
 				words.findWord(i, sc, mutualBag, tabPlayer, letterDraw);
 				break;
 			case 2: 
+				//
+				//words.stealingWord(tabPlayer[0], "TUTU");
+			
+				
 				//ALEXANDRE
-				words.testStolenWord(tabPlayer);
+				//words.testStolenWord(tabPlayer);
 				//FIN ALEXANDRE
 				passTurn(i,tabPlayer);
-				turnPlayer(tabPlayer);
+				turnPlayer(tabPlayer);	
+				
 				return choice;
 				//break;
-			case 3:
-				System.out.println("Liste des mots : "+tabPlayer[i].listWord);
+			case 3: 
+				boolean playerPlaying = tabPlayer[i].getPlay();
+				Player player = new Player();
 				
-			}
-		}while((choice != 1 || choice !=2 || choice !=3) && tabPlayer[i].getScore() <10);
+				for(int j=0; j < tabPlayer.length; j++){
+					
+					if(playerPlaying == true){
+						player = tabPlayer[i];
+					}
+				}
+				words.stealingWord(tabPlayer, mutualBag, player);
+				
+				/*String word = ""; 
+				String word2 = "";
+				int val = 0;
+			        word = sc.next();
+			       // word = removeAccent(word);
+			       word2 = sc.next();
+			       // word2 = removeAccent(word2);
+			        System.out.println(word2.endsWith(word));
+			        String[] tokens = word2.split(word);
+			        String newWord = "null";
+			        
+			        for (int a = 0; a < tokens.length; a++){
+			            System.out.println("letttre split "+tokens[a]);
+			        	newWord = new String(tokens[a]).toUpperCase();
+			        }
+			        System.out.println(newWord);*/
+			
+			break;
+				}
+				
+		}while((choice != 1 || choice !=2 || choice != 3) && tabPlayer[i].getScore() <10);
 		System.out.println("Fin du game");
 		return choice;
 		
