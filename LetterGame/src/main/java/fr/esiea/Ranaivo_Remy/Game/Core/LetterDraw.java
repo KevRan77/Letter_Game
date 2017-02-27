@@ -5,7 +5,7 @@ import fr.esiea.Ranaivo_Remy.Game.Components.MutualBag;
 import fr.esiea.Ranaivo_Remy.Game.Components.Player;
 
 public class LetterDraw {
-	
+
 	public LetterDraw(){}
 		
 	public void oneDraw(Player player, MutualBag mutualBag ){
