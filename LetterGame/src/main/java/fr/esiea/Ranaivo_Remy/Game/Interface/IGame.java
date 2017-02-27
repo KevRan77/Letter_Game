@@ -4,12 +4,10 @@ import fr.esiea.Ranaivo_Remy.Game.Components.Alphabet;
 import fr.esiea.Ranaivo_Remy.Game.Components.Player;
 
 
-
-
 public interface IGame{
 	
 	public String getString();
-	public void setNbPlayer();
+	public int setNbPlayer();
 	public void initTabPlayer();
 	public void setNameEnter();
 	public void startGame(Alphabet[] alphabet);

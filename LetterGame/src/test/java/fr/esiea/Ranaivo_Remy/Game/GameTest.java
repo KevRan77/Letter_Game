@@ -2,21 +2,19 @@ package fr.esiea.Ranaivo_Remy.Game;
 
 import static org.junit.Assert.*;
 
+
 import org.junit.Before;
 import org.junit.Test;
 
 import fr.esiea.Ranaivo_Remy.Game.Components.Player;
 import fr.esiea.Ranaivo_Remy.Game.Core.Game;
 
+ 
 public class GameTest {
+	
 
 	@Test
 	public final void testGame() {
-		fail("Not yet implemented"); // TODO
-	}
-	
-	@Test
-	public final void testGetChoiceNbPlayer() {	
 		fail("Not yet implemented"); // TODO
 	}
 
@@ -74,8 +72,6 @@ public class GameTest {
 		tabPlayer[1].setName("joueur2");
 		
 		assertSame("Le joueur2 commence", tabPlayer[1],test.whoStart(tabPlayer));	 
-		
-		
 	}
 
 	@Test
@@ -98,9 +94,8 @@ public class GameTest {
 		assertTrue("Test réussi", flag);
 	}
 
-	@Test
-	public final void testMutualBag() {
+	//@Test
+	/*public final void testMutualBag() {
 		fail("Not yet implemented"); // TODO
-	}
-
+	}*/
 }

@@ -8,6 +8,7 @@ public class Player{
 	int score;
 	Boolean play;
 	public ArrayList<String> listWord = new ArrayList<String>();
+	int IA;
 	
 	
 	
@@ -17,8 +18,16 @@ public class Player{
 		this.score = 0;
 		this.play = false;
 		this.listWord.add("null");
+		this.IA = 0;
+	}
+
+	public int getIA(){
+		return this.IA;
 	}
 	
+	public void setIA(int IA){
+		this.IA = IA;
+	}
 	
 	public String getName(){
 		return this.name;

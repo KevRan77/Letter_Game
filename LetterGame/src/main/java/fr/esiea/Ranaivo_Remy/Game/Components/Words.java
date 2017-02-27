@@ -4,13 +4,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import fr.esiea.Ranaivo_Remy.Game.Core.IA;
 import fr.esiea.Ranaivo_Remy.Game.Core.LetterDraw;
 
 public class Words {
 
+	IA ia = new IA();
 	public Words(){}
 	
 	
@@ -200,57 +205,50 @@ public class Words {
 */
 	public void findWord(int i, Scanner sc, MutualBag mutualBag, Player[] tabPlayer, LetterDraw letterDraw){
 		String word = ""; 
-		//String word2 = "";
+		String iaList = "";
+		if(tabPlayer[i].getIA()!=1){
+		 word = sc.next();
+	     word = removeAccent(word);
+		}
+		if(tabPlayer[i].getIA()==1){
+			this.ia.setIaBag(mutualBag.getMutualBag());
+			System.out.println("pot commun de l'IA : "+this.ia.getIaBag());
+			for(Character iterator : this.ia.getIaBag()){
+				iaList += iterator;
+			}
+			System.out.println(iaList);
+		}
 		int val = 0;
-	        word = sc.next();
-	        word = removeAccent(word);
-	      /*  word2 = sc.next();
-	        word2 = removeAccent(word2);
-	        System.out.println(word2.endsWith(word));
-	        String[] tokens = word2.split(word);
-	        String newWord = "null";
-	        
-	        for (int a = 0; a < tokens.length; a++){
-	            System.out.println(tokens[a]);
-	        	newWord = new String(tokens[a]).toUpperCase();
-	        }
-	        System.out.println(newWord);
-	        System.out.println(verifLetterMutualBag(newWord,this.potCommun));*/
+	       /**/
 	        
 	        Scanner file;
 			try {
-				file = new Scanner(new File("C:/Users/Nora/git/Letter_Game/LetterGame/src/main/resources/dico.txt"));
+				file = new Scanner(new File("C:/Users/Kevin-R/git/Letter_Game/LetterGame/src/main/resources/dico.txt"));
 				while(file.hasNextLine()){
 					String line = file.nextLine().toUpperCase();
 					line = removeAccent(line);
 					int size = line.length();
-				//	if(word.length() ){}
-					//tabPlayer[i].setListWord(tabPlayer[i].listWord);
-				/*	for(int j = 0 ; j < numberPlayer; j++){
-						for(int count = 0; count < tabPlayer[j].listWord.size(); count++ ){
-							//int lastElement = tabPlayer[i].listWord.size() - 1;
-							String wordCompare = tabPlayer[j].getListWord().get(count);
-							//String wordWritten = tabPlayer[i].getListWord().get(lastElement);
-							Boolean resultOfCompare = word.startsWith(wordCompare);
-							System.out.println("result of compare : "+resultOfCompare);
-							if(resultOfCompare == true && word.length() > wordCompare.length()){
-								
-								stealingWord(tabPlayer, word, wordCompare, count, j, i);
-								
-							}
-						}
-					}	*/
-					
-
+					if (tabPlayer[i].getIA()==0){
 					if(line.indexOf(word.toUpperCase()) != -1 && word.length() == size && mutualBag.verifLetterMutualBag(line,mutualBag.getMutualBag()) == true){
 						tabPlayer[i].score++;
 						tabPlayer[i].setListWord(tabPlayer[i].listWord);
 						tabPlayer[i].listWord.add(line);
-						//System.out.println("list : "+tabPlayer[i].listWord);
 						System.out.println("Score de "+tabPlayer[i].name+" : "+tabPlayer[i].score);
-			            val = 1;  
+			            val = 1;
 			        	letterDraw.oneDraw(tabPlayer [i], mutualBag);
-			        }
+			        	}
+					}
+					else if(tabPlayer[i].getIA()==1){
+					if(line.matches("["+iaList+"]+")==true && mutualBag.verifLetterMutualBag(line,mutualBag.getMutualBag()) == true){
+						System.out.println();
+						tabPlayer[i].score++;
+						tabPlayer[i].setListWord(tabPlayer[i].listWord);
+						tabPlayer[i].listWord.add(line);
+						System.out.println("Score de "+tabPlayer[i].name+" : "+tabPlayer[i].score);
+			            val = 1;
+			        	letterDraw.oneDraw(tabPlayer [i], mutualBag);
+						}
+					}
 			     }
 			        if(val == 0) System.out.println("Le mot n'est pas valide");
 			            

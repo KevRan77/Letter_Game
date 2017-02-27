@@ -10,7 +10,7 @@ import fr.esiea.Ranaivo_Remy.Game.Interface.IGame;
 
 public class Game implements IGame {
 	// *****  Variables  ***** \\
-	int keyEnter, numberPlayer;
+	int keyEnter, numberPlayer, gameMode;
 	
 	Player[] tabPlayer = new Player[numberPlayer];
 	String[] playerName = new String[numberPlayer];
@@ -37,24 +37,42 @@ public class Game implements IGame {
 	}
 	
 	//Permet à  l'utilisateur d'entrer le nombre de joueur pour la partie
-	public void setNbPlayer(){
+	public int setNbPlayer(){
 		do{
-			System.out.println("Veuillez entrer le nombre de joueurs, minimum 2 : ");
-			if (sc.hasNextInt()) this.numberPlayer = sc.nextInt();
-	        else {
+			System.out.println("1) Joueur vs Joueur");
+			System.out.println("2) Joueur vs IA");
+			if(sc.hasNextInt()) this.gameMode = sc.nextInt();
+			/* gameMode c'est le mode de la Partie (Joueur vs Joueur ou Joueur vs IA) */
+			else {
 	        	System.out.println("La valeur saisie n'est pas un entier!");
 	            sc.next();
 	            continue;
 	        }
+			if(gameMode == 1){
+				System.out.println("Veuillez entrer le nombre de joueurs, minimum 2 : ");
+				if (sc.hasNextInt()) this.numberPlayer = sc.nextInt();
+		        else {
+		        	System.out.println("La valeur saisie n'est pas un entier!");
+		            sc.next();
+		            continue;
+		        }
+			}
+			else if(gameMode == 2){
+				this.numberPlayer = 2;
+			}
+			
 			this.tabPlayer = new Player[this.numberPlayer];
-		}while(numberPlayer < 2 );
+		}while(numberPlayer < 2 || (gameMode != 1 && gameMode !=2) );
+		
+		return gameMode;
 	}
 	
 
 	//Initialise le tableau de joueur avec des joueurs "null"
-	public void initTabPlayer(){
+	public void initTabPlayer(int gameMode){
 		for(int i = 0; i<this.numberPlayer; i++){
 			this.tabPlayer[i] = new Player();
+			if(gameMode == 2 && i == 1)this.tabPlayer[i].setIA(1);
 			this.tabPlayer[i].listWord.remove("null");
 		}
 	}
@@ -66,17 +84,28 @@ public class Game implements IGame {
 	
 	//Récupère le nom de chaque joueur et stocke dans un tableau
 	public void setNameEnter(){
-		//int i;
-		setNbPlayer();
-		initTabPlayer();
+		int j = 0;
+		int i = 0;
+		j = setNbPlayer();
+		initTabPlayer(j);
 		initMutualBag();
 		
 		//Design Pattern : iterator
 		for(Player iterator : this.tabPlayer){
-			System.out.println("Entrez le nom du Joueur : ");
+			if(iterator.getIA()==1 && j == 2){
+				iterator.setName("IA");
+				break;	
+			}
+			else if(j == 2 && iterator.getIA()==0){
+			System.out.println("Entrez votre nom : ");
 			iterator.setName(getString());
+			}
+			else{
+			i++;
+			System.out.println("Entrez le nom du Joueur "+i+" :" );
+			iterator.setName(getString());
+			}
 		}
-		
 	}
 	
 	public void printWordPlayer(Player[] tabPlayer){
@@ -85,7 +114,6 @@ public class Game implements IGame {
 			System.out.println("Mots du joueur "+i.getName()+" : "+i.getListWord()+" et score : "+i.getScore());
 		}
 		System.out.println("***************************\n");
-
 	}
 	
 
@@ -114,7 +142,7 @@ public class Game implements IGame {
 	//Permet au joueur de jouer 
 	public void turnPlayer(Player[] tabPlayer){	
 		for(int i = 0; i < tabPlayer.length; i++){
-			if(tabPlayer[i].getPlay() == true && tabPlayer[i].getScore() <10){
+			if(tabPlayer[i].getPlay() == true/* && tabPlayer[i].getScore() <10*/){
 				System.out.println(tabPlayer[i].getName()+" joue");
 				letterDraw.playerStarterDraw(tabPlayer[i], mutualBag);
 				choiceAction(i);
@@ -147,11 +175,16 @@ public class Game implements IGame {
 	public int choiceAction(int i){
 		int choice = 0;
 		do{
+			//if(this.tabPlayer[1].getIA() == 1 && this.tabPlayer[1].getPlay() == true)break;
+			
 			printWordPlayer( this.tabPlayer);
 			printMenu();
-		
-			if (sc.hasNextInt()) choice = sc.nextInt();
-	        else {
+			System.out.println(i);
+			System.out.println(this.tabPlayer[i].getIA());
+			
+			if(this.tabPlayer[i].getIA()==1)choice = 2;
+			else if (this.tabPlayer[i].getIA()==0 && sc.hasNextInt())choice = sc.nextInt();
+			else if(!sc.hasNextInt()){
 	        	System.out.println("La valeur saisie n'est pas un entier!");
 	            sc.next();
 	            continue;
@@ -213,7 +246,6 @@ public class Game implements IGame {
 		
 	}
 
-
 	//Tri a bulle sur le tableau de joueur pour connaître celui à la plus petite lettre
 	public Player[] sortArray(Player[] tabPlayer){
 		int i,j;
@@ -229,6 +261,11 @@ public class Game implements IGame {
 			}
 		}
 		return tabPlayer;
+	}
+
+	public void initTabPlayer() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
