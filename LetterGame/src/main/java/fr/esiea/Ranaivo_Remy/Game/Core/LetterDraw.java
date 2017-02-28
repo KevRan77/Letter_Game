@@ -5,7 +5,7 @@ import fr.esiea.Ranaivo_Remy.Game.Components.MutualBag;
 import fr.esiea.Ranaivo_Remy.Game.Components.Player;
 
 public class LetterDraw {
-	
+
 	public LetterDraw(){}
 		
 	public void oneDraw(Player player, MutualBag mutualBag ){
@@ -13,7 +13,7 @@ public class LetterDraw {
 	
 		letterChosen = Alphabet.random();
 		mutualBag.mutualBagAddLetter(letterChosen);
-		System.out.println("Le joueur "+player.getName()+" a pioché : "+letterChosen);
+		System.out.println(player.getName()+" a pioché : "+letterChosen);
 		mutualBag.printMutualBag();
 	}
 	
@@ -23,7 +23,7 @@ public class LetterDraw {
 		for(int i =0; i<2;i++){
 			letterChosen = Alphabet.random();
 			mutualBag.mutualBagAddLetter(letterChosen);
-			System.out.println("Le joueur "+player.getName()+" a pioché : "+letterChosen);
+			System.out.println(player.getName()+" a pioché : "+letterChosen);
 		}
 		mutualBag.printMutualBag();
 	}
@@ -42,7 +42,7 @@ public class LetterDraw {
 				if(alphabet[j].getChar()==letterChosen){
 					mutualBag.mutualBagAddLetter(letterChosen);
 					tabPlayer[i].setVal(alphabet[j].getValue());
-					System.out.println("Le joueur "+tabPlayer[i].getName()+" a pioché la lettre "+letterChosen);
+					System.out.println(tabPlayer[i].getName()+" a pioché la lettre "+letterChosen);
 					alphabet[j].setChar('0');
 				}
 			}

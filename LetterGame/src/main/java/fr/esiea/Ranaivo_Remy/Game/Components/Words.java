@@ -18,8 +18,8 @@ public class Words {
 	IA ia = new IA();
 	public Words(){}
 	
-	
-	public static String removeAccent(String source) {
+
+	public String removeAccent(String source) {
 		return Normalizer.normalize(source, Normalizer.Form.NFD).replaceAll("[\u0300-\u036F]", "");
 	}
 	
@@ -34,56 +34,8 @@ public class Words {
 		}
 		return tabScoreWord;
 	}
-	
-	
-	
-	/*public void stealingWord(Player player, String newWord){
-		
-		ArrayList<Character> tabOldChar = new ArrayList<Character>();
-		ArrayList<Character> tabNewChar = new ArrayList<Character>();
-		
-		// INITIALISE TABNEWCHAR
-		for (char c : newWord.toCharArray()) {
-			  tabNewChar.add(c);
-			}
-		// FIN INITIALISE TABNEWCHAR
-		
-		for(int i=0; i<player.listWord.size(); i++){		
-			
-			// INITIALISE LE TABOLDCHAR
-			for (char c : player.listWord.get(i).toCharArray()) {
-			  tabOldChar.add(c);
-			}
-			// FIN INITIALISE TABOLDCHAR
-			
-			boolean flag = true;
-			
-			for(int j =0; j< tabNewChar.size(); j++){
-				for(int k = 0; k < tabOldChar.size(); k++){
-					System.out.println("Comparaison tabOldChar : "+tabOldChar.get(k)+ " et tabNewChar : "+tabNewChar.get(j));
-					if(tabOldChar.get(k) == tabNewChar.get(j)){
-						tabOldChar.remove(k);
-						k--;
-						break;
-					}else if(k == tabOldChar.size()-1){
-						flag = false;
-					}
-					
-					
-					if(flag == true){
-						player.listWord.remove(i);
-						player.score--;
-					}
-				}
-				System.out.println("Test boolean : "+flag);
-			}
-	
-			//TEST AFFICHAGE TABLEAU DES MOTS CREES
-			//System.out.println("Tableau : "+tabOldChar[0]+" :: "+tabOldChar[1]);
-			//FIN TEST
-		}
-	}*/
-	
+
+
 	public int whichWordStolen(Player player, String sameWord){
 		int idWord = 20;
 		for(int i = 0; i < player.listWord.size(); i++){
@@ -103,7 +55,7 @@ public class Words {
 		}
 		return target;
 	}
-	
+
 	public void stealingWord(Player[] tabPlayer, MutualBag pot, Player thief){
 		System.out.println("A quel joueur voulez vous voler un mot ?");
 		Scanner sc = new Scanner(System.in);
@@ -111,7 +63,6 @@ public class Words {
 		String namePlayer = sc.next();
 		Player target = new Player();
 		target = whoIsStolen(tabPlayer, namePlayer);
-		Scanner file;
 		ArrayList<Character> tmpPot = new ArrayList<Character>(pot.getMutualBag().size());
 		tmpPot.addAll(pot.getMutualBag());
 		
@@ -120,140 +71,146 @@ public class Words {
 			//TROUVER UN MOYEN DE QUITTER ET REVENIR AU MENU
 		}
 		else{
-			System.out.println("Quel mot voulez vous voler ?");
-			String wordToSteal = sc.next();
-			wordToSteal = wordToSteal.toUpperCase();
-			int idWordToSteal = whichWordStolen(target, wordToSteal);
-			if(idWordToSteal == 20){
-				System.out.println("Le joueur cible ne possède pas le mot "+wordToSteal);
-			}
-			else{
-				System.out.println("Entrez votre nouveau mot formé à partir du mot "+wordToSteal+" :");
-				String newWord = sc.next();
-				newWord = newWord.toUpperCase();
-				//System.out.println("new word : "+newWord);
-				//System.out.println("stealing word : "+wordToSteal);
-				
-				if(newWord.contains(wordToSteal)){
-					try {
-						file = new Scanner(new File("C:/Users/Nora/git/Letter_Game/LetterGame/src/main/resources/dico.txt"));
-					
-						while(file.hasNextLine()){
-							String line = file.nextLine().toUpperCase();
-							line = removeAccent(line);
-							int size = line.length();
-							//System.out.println("lien"+line);
-							//System.out.println("new word"+newWord);
-							if(line.indexOf(newWord.toUpperCase()) != -1 && newWord.length() == size ){
+			whichWordToSteal(sc,target,pot,tmpPot,thief,val);
+		}
+	}
+	
+	public void whichWordToSteal(Scanner sc, Player target,MutualBag pot, ArrayList<Character> tmpPot, Player thief, int val ){
+		System.out.println("Quel mot voulez vous voler ?");
+		String wordToSteal = sc.next();
+		wordToSteal = wordToSteal.toUpperCase();
+		int idWordToSteal = whichWordStolen(target, wordToSteal);
+		
+		if(idWordToSteal == 20){
+			System.out.println("Le joueur cible ne possède pas le mot "+wordToSteal);
+		}
+		else{
+			newWord(sc,wordToSteal,pot,tmpPot,target,thief,idWordToSteal,val);
+		}
+	}
+	
 
-								String diff = newWord.replace(wordToSteal, "");
-								//System.out.println("diff"+diff);
-								boolean supprOfMutualBag = pot.verifLetterMutualBag(diff, tmpPot);
-								
-								//System.out.println("Pot "+pot.getMutualBag());
-								//System.out.println("Pot tempt"+tmpPot);
-								//System.out.println("suppr"+supprOfMutualBag);
-								val =1;
-								
-								if(supprOfMutualBag == true){
-									System.out.println("Vol : ajouter le mot dans la liste");
-									pot.getMutualBag().removeAll(pot.getMutualBag());
-									pot.getMutualBag().addAll(tmpPot);
-									target.listWord.remove(idWordToSteal); 
-									target.score--;
-									thief.score++;
-									thief.listWord.add(newWord);
-									//System.out.println("Score Joueur "+target.name+" : "+target.score);
-									//System.out.println("Score Joueur "+thief.name+" : "+thief.score);
-								}
-							}else if(!file.hasNextLine()){
-								if(val == 0)System.out.println("Le mot n'est pas dans le dico");
-							}
-						}
-					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}else{
-					System.out.println("Le mot n'est pas contenu");
-				}
-			}
-		}
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/*
-	public void compareWord(List<String> listScoreWord, String word){
-		for(int i=0; i<listScoreWord.size(); i++){
-			boolean testCompare = word.startsWith(listScoreWord.get(i));
-			//System.out.println(testCompare);
-			if( testCompare == true) break;
-		}
-	}
-	
-	public void testStolenWord(Player[] tabPlayer){
+	/*public void testStolenWord(Player[] tabPlayer){
 		List<String> tabScoreWord = playerListScoreWord(tabPlayer);
 		compareWord(tabScoreWord, "aa");
+	}*/
+
+
+	public void newWord(Scanner sc, String wordToSteal,MutualBag pot, ArrayList<Character> tmpPot, Player target, Player thief, int idWordToSteal, int val){
+		Scanner file;
+		System.out.println("Entrez votre nouveau mot formé à partir du mot "+wordToSteal+" :");
+		String newWord = sc.next();
+		newWord = newWord.toUpperCase();
+		
+		if(newWord.contains(wordToSteal) && newWord.length() > wordToSteal.length()){
+			try {
+				file = new Scanner(new File("C:/Users/Kevin-R/git/Letter_Game/LetterGame/src/main/resources/dico.txt"));
+				searchInDico(file,newWord,wordToSteal,pot,tmpPot,target,thief,idWordToSteal,val);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}else{
+			System.out.println("Erreur : Le mot n'est pas valide");
+		}
 	}
-*/
+	
+	public void searchInDico(Scanner file, String newWord, String wordToSteal,MutualBag pot, ArrayList<Character> tmpPot, Player target, Player thief, int idWordToSteal, int val ){
+		
+		while(file.hasNextLine()){
+			String line = file.nextLine().toUpperCase();
+			line = removeAccent(line);
+			int size = line.length();
+			if(line.indexOf(newWord.toUpperCase()) != -1 && newWord.length() == size ){
+				String diff = newWord.replace(wordToSteal, "");
+				boolean supprOfMutualBag = pot.verifLetterMutualBag(diff, tmpPot);
+				val =1;
+				
+				if(supprOfMutualBag == true) succeedTheft(pot,tmpPot,target, thief,newWord,idWordToSteal);		
+			}else if(!file.hasNextLine()){
+				if(val == 0) System.out.println("Le mot n'est pas dans le dico");
+			}
+		}
+	}
+	
+	
+	public void succeedTheft(MutualBag pot, ArrayList<Character> tmpPot, Player target, Player thief, String newWord, int idWordToSteal ){
+		System.out.println("Vol : ajout du mot dans la liste");
+		pot.getMutualBag().removeAll(pot.getMutualBag());
+		pot.getMutualBag().addAll(tmpPot);
+		target.listWord.remove(idWordToSteal); 
+		target.score--;
+		thief.score++;
+		thief.listWord.add(newWord);
+	}
+	
+	
+
 	public void findWord(int i, Scanner sc, MutualBag mutualBag, Player[] tabPlayer, LetterDraw letterDraw){
 		String word = ""; 
 		String iaList = "";
-		if(tabPlayer[i].getIA()!=1){
-		 word = sc.next();
-	     word = removeAccent(word);
-		}
-		if(tabPlayer[i].getIA()==1){
-			this.ia.setIaBag(mutualBag.getMutualBag());
-			System.out.println("pot commun de l'IA : "+this.ia.getIaBag());
-			for(Character iterator : this.ia.getIaBag()){
-				iaList += iterator;
-			}
-			System.out.println(iaList);
-		}
 		int val = 0;
-	       /**/
-	        
-	        Scanner file;
-			try {
+	    Scanner file;
+	    try {
 				file = new Scanner(new File("C:/Users/Kevin-R/git/Letter_Game/LetterGame/src/main/resources/dico.txt"));
-				while(file.hasNextLine()){
-					String line = file.nextLine().toUpperCase();
-					line = removeAccent(line);
-					int size = line.length();
-					if (tabPlayer[i].getIA()==0){
-					if(line.indexOf(word.toUpperCase()) != -1 && word.length() == size && mutualBag.verifLetterMutualBag(line,mutualBag.getMutualBag()) == true){
-						tabPlayer[i].score++;
-						tabPlayer[i].setListWord(tabPlayer[i].listWord);
-						tabPlayer[i].listWord.add(line);
-						System.out.println("Score de "+tabPlayer[i].name+" : "+tabPlayer[i].score);
-			            val = 1;
-			        	letterDraw.oneDraw(tabPlayer [i], mutualBag);
-			        	}
+				if(tabPlayer[i].getIA()!=1){
+				    word = sc.next();
+				    word = removeAccent(word);
+				    searchInDicoBasic(file,word,mutualBag,i,tabPlayer,val,letterDraw);
+				}
+				//C'est ici que l'IA entre en jeu : on initialise le potCommun de l'IA et on concatène chaque lettre du potCommun dans un String (iaList)
+				if(tabPlayer[i].getIA()==1){
+					this.ia.setIaBag(mutualBag.getMutualBag());
+					System.out.println("pot commun de l'IA : "+this.ia.getIaBag());
+					for(Character iterator : this.ia.getIaBag()){
+						iaList += iterator;
 					}
-					else if(tabPlayer[i].getIA()==1){
-					if(line.matches("["+iaList+"]+")==true && mutualBag.verifLetterMutualBag(line,mutualBag.getMutualBag()) == true){
-						System.out.println();
-						tabPlayer[i].score++;
-						tabPlayer[i].setListWord(tabPlayer[i].listWord);
-						tabPlayer[i].listWord.add(line);
-						System.out.println("Score de "+tabPlayer[i].name+" : "+tabPlayer[i].score);
-			            val = 1;
-			        	letterDraw.oneDraw(tabPlayer [i], mutualBag);
-						}
-					}
-			     }
-			        if(val == 0) System.out.println("Le mot n'est pas valide");
+					//je laisse afficher chaque mot entré par l'IA histoire d'avoir une meilleure visibilité pour les joueurs
+					System.out.println(iaList);
+					//détail de la fonction en dessous, mêmes paramètres que ta fonction Basic sauf word qui est devenu iaList
+					searchInDicoIA(iaList, file, mutualBag,  i,  tabPlayer, val, letterDraw);
+				}
 			            
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
-			}     
-	    }
+			}			
+	}
+	
+	
+	public void searchInDicoBasic(Scanner file, String word, MutualBag mutualBag, int i, Player[] tabPlayer, int val,LetterDraw letterDraw){
+		while(file.hasNextLine()){
+			String line = file.nextLine().toUpperCase();
+			line = removeAccent(line);
+			int size = line.length();
+			if(line.indexOf(word.toUpperCase()) != -1 && word.length() == size && mutualBag.verifLetterMutualBag(line,mutualBag.getMutualBag()) == true){						
+				statPlayer(i,tabPlayer,line);
+	            val = 1;  
+	        	letterDraw.oneDraw(tabPlayer [i], mutualBag);
+	        }
+	     }
+	        if(val == 0) System.out.println("Le mot n'est pas valide");
+	}
+	
+	//fonction de l'IA qui va chercher tous les mots du dico similaires à "iaList", iaList représentant le potCommun mais en STRING
+	public void searchInDicoIA(String iaList, Scanner file, MutualBag mutualBag, int i, Player[] tabPlayer, int val,LetterDraw letterDraw){
+		while(file.hasNextLine() && tabPlayer[i].getScore() < 5){
+			String line = file.nextLine().toUpperCase();
+			line = removeAccent(line);
+			//c'est l'expression régulière utilisée dans le "if" qui gère le fait de pouvoir matcher iaList avec les mots du dico.
+		if(line.matches("["+iaList+"]+")==true && mutualBag.verifLetterMutualBag(line,mutualBag.getMutualBag()) == true){
+			System.out.println(line);
+			statPlayer(i, tabPlayer,line);
+            val = 1;
+        	letterDraw.oneDraw(tabPlayer[i], mutualBag);
+			}
+		}
+		//tabPlayer[i].setPlay(false);
+	}
+	
+	public void statPlayer(int i, Player[] tabPlayer, String line){
+		tabPlayer[i].score++;
+		tabPlayer[i].setListWord(tabPlayer[i].listWord);
+		tabPlayer[i].listWord.add(line);
+		System.out.println("Score de "+tabPlayer[i].name+" : "+tabPlayer[i].score);
+	}
+	
 }

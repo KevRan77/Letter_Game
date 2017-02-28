@@ -42,7 +42,7 @@ public class Game implements IGame {
 			System.out.println("1) Joueur vs Joueur");
 			System.out.println("2) Joueur vs IA");
 			if(sc.hasNextInt()) this.gameMode = sc.nextInt();
-			/* gameMode c'est le mode de la Partie (Joueur vs Joueur ou Joueur vs IA) */
+			/* gameMode c'est le mode de la Partie (1) Joueur vs Joueur ou 2) Joueur vs IA) */
 			else {
 	        	System.out.println("La valeur saisie n'est pas un entier!");
 	            sc.next();
@@ -72,6 +72,7 @@ public class Game implements IGame {
 	public void initTabPlayer(int gameMode){
 		for(int i = 0; i<this.numberPlayer; i++){
 			this.tabPlayer[i] = new Player();
+		//on attribue d'office la valeur 1 pour l'IA dans le cas où on est dans le mode Joueur vs IA histoire de les différencier
 			if(gameMode == 2 && i == 1)this.tabPlayer[i].setIA(1);
 			this.tabPlayer[i].listWord.remove("null");
 		}
@@ -96,11 +97,13 @@ public class Game implements IGame {
 				iterator.setName("IA");
 				break;	
 			}
+			//Ajustement du menu pour le mode Joueur vs IA
 			else if(j == 2 && iterator.getIA()==0){
 			System.out.println("Entrez votre nom : ");
 			iterator.setName(getString());
 			}
 			else{
+				//Ajout du numéro des joueurs (esthétisme)
 			i++;
 			System.out.println("Entrez le nom du Joueur "+i+" :" );
 			iterator.setName(getString());
@@ -111,7 +114,7 @@ public class Game implements IGame {
 	public void printWordPlayer(Player[] tabPlayer){
 		System.out.println("\n***************************");
 		for(Player i : this.tabPlayer){
-			System.out.println("Mots du joueur "+i.getName()+" : "+i.getListWord()+" et score : "+i.getScore());
+			System.out.println("Mots de "+i.getName()+" : "+i.getListWord()+" et score : "+i.getScore());
 		}
 		System.out.println("***************************\n");
 	}
@@ -135,14 +138,14 @@ public class Game implements IGame {
 	public Player whoStart(Player[] tabPlayer){
 		tabPlayer = sortArray(tabPlayer);
 		tabPlayer[0].setPlay(true);
-		System.out.println("Le joueur "+tabPlayer[0].getName()+" commence.");
+		System.out.println(tabPlayer[0].getName()+" commence.");
 		return tabPlayer[0];
 	}
 	
 	//Permet au joueur de jouer 
 	public void turnPlayer(Player[] tabPlayer){	
 		for(int i = 0; i < tabPlayer.length; i++){
-			if(tabPlayer[i].getPlay() == true/* && tabPlayer[i].getScore() <10*/){
+			if(tabPlayer[i].getPlay() == true && tabPlayer[i].getScore() <5){
 				System.out.println(tabPlayer[i].getName()+" joue");
 				letterDraw.playerStarterDraw(tabPlayer[i], mutualBag);
 				choiceAction(i);
@@ -175,16 +178,15 @@ public class Game implements IGame {
 	public int choiceAction(int i){
 		int choice = 0;
 		do{
-			//if(this.tabPlayer[1].getIA() == 1 && this.tabPlayer[1].getPlay() == true)break;
 			
-			printWordPlayer( this.tabPlayer);
+			printWordPlayer(this.tabPlayer);
 			printMenu();
-			System.out.println(i);
-			System.out.println(this.tabPlayer[i].getIA());
+			/*System.out.println(i);
+			System.out.println(tabPlayer[i].getIA());*/
 			
-			if(this.tabPlayer[i].getIA()==1)choice = 2;
-			else if (this.tabPlayer[i].getIA()==0 && sc.hasNextInt())choice = sc.nextInt();
-			else if(!sc.hasNextInt()){
+			//if(this.tabPlayer[i].getIA()==1)choice = 2;
+			if(sc.hasNextInt())choice = sc.nextInt();
+			else{
 	        	System.out.println("La valeur saisie n'est pas un entier!");
 	            sc.next();
 	            continue;
@@ -193,7 +195,7 @@ public class Game implements IGame {
 			switch(choice){
 			case 1:
 				System.out.println("Taper un mot : ");
-				words.findWord(i, sc, mutualBag, tabPlayer, letterDraw);
+				words.findWord(i, sc, mutualBag,tabPlayer, letterDraw);
 				break;
 			case 2: 
 				//
@@ -205,9 +207,7 @@ public class Game implements IGame {
 				//FIN ALEXANDRE
 				passTurn(i,tabPlayer);
 				turnPlayer(tabPlayer);	
-				
 				return choice;
-				//break;
 			case 3: 
 				boolean playerPlaying = tabPlayer[i].getPlay();
 				Player player = new Player();
@@ -215,7 +215,7 @@ public class Game implements IGame {
 				for(int j=0; j < tabPlayer.length; j++){
 					
 					if(playerPlaying == true){
-						player = tabPlayer[i];
+						player =tabPlayer[i];
 					}
 				}
 				words.stealingWord(tabPlayer, mutualBag, player);
@@ -240,10 +240,11 @@ public class Game implements IGame {
 			break;
 				}
 				
-		}while((choice != 1 || choice !=2 || choice != 3) && tabPlayer[i].getScore() <10);
+		}while((choice != 1 || choice !=2 || choice != 3) && this.tabPlayer[i].getScore() <5);
+		printWordPlayer(this.tabPlayer);
 		System.out.println("Fin du game");
+		System.out.println("Victoire de "+tabPlayer[i].getName()+" !");
 		return choice;
-		
 	}
 
 	//Tri a bulle sur le tableau de joueur pour connaître celui à la plus petite lettre
