@@ -8,12 +8,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
-<<<<<<< HEAD
-=======
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
->>>>>>> refs/remotes/origin/master
 import fr.esiea.Ranaivo_Remy.Game.Core.IA;
 import fr.esiea.Ranaivo_Remy.Game.Core.LetterDraw;
 
@@ -93,7 +89,7 @@ public class Words {
 		}
 	}
 	
-<<<<<<< HEAD
+
 
 	/*public void testStolenWord(Player[] tabPlayer){
 		List<String> tabScoreWord = playerListScoreWord(tabPlayer);
@@ -101,7 +97,6 @@ public class Words {
 	}*/
 
 
-=======
 
 	/*public void testStolenWord(Player[] tabPlayer){
 		List<String> tabScoreWord = playerListScoreWord(tabPlayer);
@@ -109,20 +104,15 @@ public class Words {
 	}*/
 
 
->>>>>>> refs/remotes/origin/master
 	public void newWord(Scanner sc, String wordToSteal,MutualBag pot, ArrayList<Character> tmpPot, Player target, Player thief, int idWordToSteal, int val){
 		Scanner file;
 		System.out.println("Entrez votre nouveau mot formé à partir du mot "+wordToSteal+" :");
 		String newWord = sc.next();
 		newWord = newWord.toUpperCase();
 		
-<<<<<<< HEAD
 		if(newWord.contains(wordToSteal) && newWord.length() > wordToSteal.length()){
 			try {
-=======
-		if(newWord.contains(wordToSteal) && newWord.length() > wordToSteal.length()){
-			try {
->>>>>>> refs/remotes/origin/master
+
 				File currentDirFile = new File("src/main/resources/dico.txt");
 		    	String helper = currentDirFile.getAbsolutePath();
 				file = new Scanner(new File(helper));
@@ -191,12 +181,8 @@ public class Words {
 					//System.out.println(iaList);
 					//détail de la fonction en dessous, mêmes paramètres que ta fonction Basic sauf word qui est devenu iaList
 					searchInDicoIA(iaList, file, mutualBag,  i,  tabPlayer, val, letterDraw);
-<<<<<<< HEAD
-				}
-=======
-				}
->>>>>>> refs/remotes/origin/master
-			            
+
+				}			            
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}			
@@ -211,11 +197,10 @@ public class Words {
 			if(line.indexOf(word.toUpperCase()) != -1 && word.length() == size && mutualBag.verifLetterMutualBag(line,mutualBag.getMutualBag()) == true){						
 				statPlayer(i,tabPlayer,line);
 	            val = 1;  
-<<<<<<< HEAD
+
 	            if(tabPlayer[i].getScore() < 10)letterDraw.oneDraw(tabPlayer[i], mutualBag);
-=======
+
 	            if(tabPlayer[i].getScore() < 5)letterDraw.oneDraw(tabPlayer[i], mutualBag);
->>>>>>> refs/remotes/origin/master
 	        }
 	     }
 	        if(val == 0) System.out.println("Le mot n'est pas valide");

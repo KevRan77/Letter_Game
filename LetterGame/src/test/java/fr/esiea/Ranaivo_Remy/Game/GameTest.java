@@ -1,15 +1,8 @@
 package fr.esiea.Ranaivo_Remy.Game;
 
-<<<<<<< HEAD
 import static org.junit.Assert.*;
-=======
-import static org.junit.Assert.*;
-
-
 import org.junit.Before;
 import java.util.Scanner;
-
->>>>>>> refs/remotes/origin/master
 import org.junit.Test;
 import fr.esiea.Ranaivo_Remy.Game.Components.Player;
 import fr.esiea.Ranaivo_Remy.Game.Core.Game;
@@ -18,8 +11,6 @@ import fr.esiea.Ranaivo_Remy.Game.Core.Game;
 public class GameTest {
 	
 
-
-<<<<<<< HEAD
 /*	Game test = new Game();
 	
 =======
@@ -134,12 +125,10 @@ public class GameTest {
 	}
 <<<<<<< HEAD
 */
-=======
 
 	//@Test
 	/*public final void testMutualBag() {
 		fail("Not yet implemented"); // TODO
 	}*/
 
->>>>>>> refs/remotes/origin/master
 }
