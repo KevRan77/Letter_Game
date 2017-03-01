@@ -1,6 +1,15 @@
 package fr.esiea.Ranaivo_Remy.Game;
 
+<<<<<<< HEAD
 import static org.junit.Assert.*;
+=======
+import static org.junit.Assert.*;
+
+
+import org.junit.Before;
+import java.util.Scanner;
+
+>>>>>>> refs/remotes/origin/master
 import org.junit.Test;
 import fr.esiea.Ranaivo_Remy.Game.Components.Player;
 import fr.esiea.Ranaivo_Remy.Game.Core.Game;
@@ -10,8 +19,60 @@ public class GameTest {
 	
 
 
+<<<<<<< HEAD
 /*	Game test = new Game();
 	
+=======
+	@Test
+	public final void testGame() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	@Test
+	public final void testGetInt() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	@Test
+	public final void testGetString() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	Game test = new Game();
+	@Test
+	public final void testSetNbPlayer() {
+		//Scanner sc = new Scanner(System.in);
+		//int nbPlayer = sc.nextInt();
+		
+		fail("Not yet implemented"); // TODO
+	}
+
+	@Test
+	public final void testInitTabPlayer() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	@Test
+	public final void testInitMutualBag() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	@Test
+	public final void testSetNameEnter() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	@Test
+	public final void testPrintWordPlayer() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	@Test
+	public final void testStartGame() {
+		fail("Not yet implemented"); // TODO
+	}
+
+>>>>>>> refs/remotes/origin/master
 	@Test
 	public final void testWhoStart() {
 		//Game test = new Game();
@@ -30,6 +91,28 @@ public class GameTest {
 	
 	}
 
+<<<<<<< HEAD
+=======
+	@Test
+	public final void testTurnPlayer() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	@Test
+	public final void testPassTurn() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	@Test
+	public final void testPrintMenu() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	@Test
+	public final void testChoiceAction() {
+		fail("Not yet implemented"); // TODO
+	}
+>>>>>>> refs/remotes/origin/master
 
 	@Test
 	public final void testSortArray() {
@@ -49,5 +132,14 @@ public class GameTest {
 		
 		assertTrue("Test réussi", flag);
 	}
+<<<<<<< HEAD
 */
+=======
+
+	//@Test
+	/*public final void testMutualBag() {
+		fail("Not yet implemented"); // TODO
+	}*/
+
+>>>>>>> refs/remotes/origin/master
 }

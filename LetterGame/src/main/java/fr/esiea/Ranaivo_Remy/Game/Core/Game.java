@@ -60,6 +60,10 @@ public class Game implements IGame {
 				this.numberPlayer = 2;
 				this.ia.iaMode = 1;
 			}
+<<<<<<< HEAD
+=======
+			
+>>>>>>> refs/remotes/origin/master
 			this.tabPlayer = new Player[this.numberPlayer];
 		}while(numberPlayer < 2 || (gameMode != 1 && gameMode !=2) );
 		
@@ -71,6 +75,8 @@ public class Game implements IGame {
 	public void initTabPlayer(int gameMode){
 		for(int i = 0; i<this.numberPlayer; i++){
 			this.tabPlayer[i] = new Player();
+		//on attribue d'office la valeur 1 pour l'IA dans le cas où on est dans le mode Joueur vs IA histoire de les différencier
+			if(gameMode == 2 && i == 1)this.tabPlayer[i].setIA(1);
 			this.tabPlayer[i].listWord.remove("null");
 		//on attribue d'office la valeur 1 pour l'IA dans le cas où on est dans le mode Joueur vs IA histoire de les différencier
 			if(gameMode == 2 && i == 1) this.tabPlayer[i].setIA(1);
@@ -98,6 +104,7 @@ public class Game implements IGame {
 			}
 			//Ajustement du menu pour le mode Joueur vs IA
 			else if(j == 2 && iterator.getIA()==0){
+<<<<<<< HEAD
 				System.out.println("Entrez votre nom : ");
 				iterator.setName(getString());
 			}
@@ -106,6 +113,16 @@ public class Game implements IGame {
 				i++;
 				System.out.println("Entrez le nom du Joueur "+i+" :" );
 				iterator.setName(getString());
+=======
+			System.out.println("Entrez votre nom : ");
+			iterator.setName(getString());
+			}
+			else{
+				//Ajout du numéro des joueurs (esthétisme)
+			i++;
+			System.out.println("Entrez le nom du Joueur "+i+" :" );
+			iterator.setName(getString());
+>>>>>>> refs/remotes/origin/master
 			}
 		}
 	}
@@ -140,7 +157,7 @@ public class Game implements IGame {
 	//Permet au joueur de jouer 
 	public void turnPlayer(Player[] tabPlayer){	
 		for(int i = 0; i < tabPlayer.length; i++){
-			if(tabPlayer[i].getPlay() == true && tabPlayer[i].getScore() <10){
+			if(tabPlayer[i].getPlay() == true && tabPlayer[i].getScore() <5){
 				System.out.println(tabPlayer[i].getName()+" joue");
 				letterDraw.playerStarterDraw(tabPlayer[i], mutualBag);
 				choiceAction(i);
@@ -180,6 +197,7 @@ public class Game implements IGame {
 			System.out.println(tabPlayer[i].getPlay());*/
 			
 			if(ia.iaMode == 1){
+<<<<<<< HEAD
 				if(tabPlayer[i].getIA()== 1 && tabPlayer[i].getPlay() == true)	choice = 1;
 				if(tabPlayer[i].getIA() == 1 && tabPlayer[i].getPlay() == false){
 					choice = 2; 
@@ -189,6 +207,14 @@ public class Game implements IGame {
 			}
 			
 			else if(ia.iaMode == 0 && sc.hasNextInt())	choice = sc.nextInt();
+=======
+				if(tabPlayer[i].getIA()==1 && tabPlayer[i].getPlay() == true)choice = 1;
+				if(tabPlayer[i].getIA() == 1 && tabPlayer[i].getPlay() == false){choice = 2; ia.iaMode = 0;}
+				//System.out.println(choice);		
+			}
+			
+			else if(ia.iaMode == 0 && sc.hasNextInt())choice = sc.nextInt();
+>>>>>>> refs/remotes/origin/master
 			else{
 	        	System.out.println("La valeur saisie n'est pas un entier!");
 	            sc.next();
@@ -239,6 +265,11 @@ public class Game implements IGame {
 			}
 		}
 		return tabPlayer;
+	}
+
+	public void initTabPlayer() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
