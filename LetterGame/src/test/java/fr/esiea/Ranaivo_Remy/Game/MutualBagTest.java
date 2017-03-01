@@ -29,9 +29,7 @@ public class MutualBagTest {
 		char letter = 'a';
 		
 		mutualBag.mutualBagAddLetter(letter);
-		
 		assertEquals(mutualBagTest.getMutualBag(),mutualBag.getMutualBag());
-		
 		//System.out.println(mutualBagTest.getMutualBag());
 		//System.out.println(mutualBag.getMutualBag());
 	}

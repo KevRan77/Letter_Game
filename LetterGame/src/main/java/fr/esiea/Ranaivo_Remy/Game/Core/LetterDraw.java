@@ -7,23 +7,25 @@ import fr.esiea.Ranaivo_Remy.Game.Components.Player;
 public class LetterDraw {
 
 	public LetterDraw(){}
-		
+	
+	//Tire une lettre aléatoire, la met dans le pot commun et l'affiche avec son joueur associé
 	public void oneDraw(Player player, MutualBag mutualBag ){
 		char letterChosen;
 	
 		letterChosen = Alphabet.random();
 		mutualBag.mutualBagAddLetter(letterChosen);
-		System.out.println("Le joueur "+player.getName()+" a pioché : "+letterChosen);
+		System.out.println(player.getName()+" a pioché : "+letterChosen);
 		mutualBag.printMutualBag();
 	}
 	
+	//Piochement des deux lettres au début du jeu
 	public void playerStarterDraw(Player player, MutualBag mutualBag){
 		char letterChosen;
 		
 		for(int i =0; i<2;i++){
 			letterChosen = Alphabet.random();
 			mutualBag.mutualBagAddLetter(letterChosen);
-			System.out.println("Le joueur "+player.getName()+" a pioché : "+letterChosen);
+			System.out.println(player.getName()+" a pioché : "+letterChosen);
 		}
 		mutualBag.printMutualBag();
 	}
@@ -42,11 +44,10 @@ public class LetterDraw {
 				if(alphabet[j].getChar()==letterChosen){
 					mutualBag.mutualBagAddLetter(letterChosen);
 					tabPlayer[i].setVal(alphabet[j].getValue());
-					System.out.println("Le joueur "+tabPlayer[i].getName()+" a pioché la lettre "+letterChosen);
+					System.out.println(tabPlayer[i].getName()+" a pioché la lettre "+letterChosen);
 					alphabet[j].setChar('0');
 				}
 			}
 		}
 	}
-	
 }

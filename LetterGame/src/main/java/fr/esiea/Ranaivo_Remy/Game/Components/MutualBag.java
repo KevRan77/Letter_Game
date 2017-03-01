@@ -10,7 +10,7 @@ public class MutualBag {
 	public MutualBag(){
 		this.mutualBag.add(null);
 	}
-
+	
 	//Singleton
 	public static MutualBag getInstanceMutualBag() { return instanceMutualBag; }
 	

@@ -1,52 +1,17 @@
 package fr.esiea.Ranaivo_Remy.Game;
 
 import static org.junit.Assert.*;
-
-import java.util.Scanner;
-
 import org.junit.Test;
-
 import fr.esiea.Ranaivo_Remy.Game.Components.Player;
 import fr.esiea.Ranaivo_Remy.Game.Core.Game;
 
+ 
 public class GameTest {
-
-	Game test = new Game();
 	
+
+
+/*	Game test = new Game();
 	
-	@Test
-	public final void testSetNbPlayer() {
-		//Scanner sc = new Scanner(System.in);
-		//int nbPlayer = sc.nextInt();
-		
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testInitTabPlayer() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testInitMutualBag() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testSetNameEnter() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testPrintWordPlayer() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testStartGame() {
-		fail("Not yet implemented"); // TODO
-	}
-
 	@Test
 	public final void testWhoStart() {
 		//Game test = new Game();
@@ -61,28 +26,10 @@ public class GameTest {
 		tabPlayer[1].setName("joueur2");
 		
 		assertSame("Le joueur2 commence", tabPlayer[1],test.whoStart(tabPlayer));	 
+
 	
 	}
 
-	@Test
-	public final void testTurnPlayer() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testPassTurn() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testPrintMenu() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testChoiceAction() {
-		fail("Not yet implemented"); // TODO
-	}
 
 	@Test
 	public final void testSortArray() {
@@ -102,5 +49,5 @@ public class GameTest {
 		
 		assertTrue("Test réussi", flag);
 	}
-
+*/
 }

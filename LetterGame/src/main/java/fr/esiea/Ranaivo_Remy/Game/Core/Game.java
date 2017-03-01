@@ -1,7 +1,6 @@
 package fr.esiea.Ranaivo_Remy.Game.Core;
 
 import java.util.Scanner;
-
 import fr.esiea.Ranaivo_Remy.Game.Components.Alphabet;
 import fr.esiea.Ranaivo_Remy.Game.Components.MutualBag;
 import fr.esiea.Ranaivo_Remy.Game.Components.Player;
@@ -10,7 +9,8 @@ import fr.esiea.Ranaivo_Remy.Game.Interface.IGame;
 
 public class Game implements IGame {
 	// *****  Variables  ***** \\
-	int keyEnter, numberPlayer;
+	int keyEnter, numberPlayer, gameMode;
+	IA ia = new IA();
 	
 	Player[] tabPlayer = new Player[numberPlayer];
 	String[] playerName = new String[numberPlayer];
@@ -27,7 +27,6 @@ public class Game implements IGame {
 	//Méthode Game qui lance la première partie du jeu
 	public Game(){
 		Alphabet[] alphabet = Alphabet.values();
-
 		startGame(alphabet);
 	}
 	
@@ -37,25 +36,44 @@ public class Game implements IGame {
 	}
 	
 	//Permet à  l'utilisateur d'entrer le nombre de joueur pour la partie
-	public void setNbPlayer(){
+	public int setNbPlayer(){
 		do{
-			System.out.println("Veuillez entrer le nombre de joueurs, minimum 2 : ");
-			if (sc.hasNextInt()) this.numberPlayer = sc.nextInt();
-	        else {
+			System.out.println("1) Joueur vs Joueur");
+			System.out.println("2) Joueur vs IA");
+			if(sc.hasNextInt()) this.gameMode = sc.nextInt();
+			/* gameMode c'est le mode de la Partie (1) Joueur vs Joueur ou 2) Joueur vs IA) */
+			else {
 	        	System.out.println("La valeur saisie n'est pas un entier!");
 	            sc.next();
 	            continue;
 	        }
+			if(gameMode == 1){
+				System.out.println("Veuillez entrer le nombre de joueurs, minimum 2 : ");
+				if (sc.hasNextInt()) this.numberPlayer = sc.nextInt();
+		        else {
+		        	System.out.println("La valeur saisie n'est pas un entier!");
+		            sc.next();
+		            continue;
+		        }
+			}
+			else if(gameMode == 2){
+				this.numberPlayer = 2;
+				this.ia.iaMode = 1;
+			}
 			this.tabPlayer = new Player[this.numberPlayer];
-		}while(numberPlayer < 2 );
+		}while(numberPlayer < 2 || (gameMode != 1 && gameMode !=2) );
+		
+		return gameMode;
 	}
 	
 
 	//Initialise le tableau de joueur avec des joueurs "null"
-	public void initTabPlayer(){
+	public void initTabPlayer(int gameMode){
 		for(int i = 0; i<this.numberPlayer; i++){
 			this.tabPlayer[i] = new Player();
 			this.tabPlayer[i].listWord.remove("null");
+		//on attribue d'office la valeur 1 pour l'IA dans le cas où on est dans le mode Joueur vs IA histoire de les différencier
+			if(gameMode == 2 && i == 1) this.tabPlayer[i].setIA(1);
 		}
 	}
 	
@@ -66,26 +84,39 @@ public class Game implements IGame {
 	
 	//Récupère le nom de chaque joueur et stocke dans un tableau
 	public void setNameEnter(){
-		//int i;
-		setNbPlayer();
-		initTabPlayer();
+		int j = 0;
+		int i = 0;
+		j = setNbPlayer();
+		initTabPlayer(j);
 		initMutualBag();
 		
 		//Design Pattern : iterator
 		for(Player iterator : this.tabPlayer){
-			System.out.println("Entrez le nom du Joueur : ");
-			iterator.setName(getString());
+			if(iterator.getIA()==1 && j == 2){
+				iterator.setName("IA");
+				break;	
+			}
+			//Ajustement du menu pour le mode Joueur vs IA
+			else if(j == 2 && iterator.getIA()==0){
+				System.out.println("Entrez votre nom : ");
+				iterator.setName(getString());
+			}
+			else{
+				//Ajout du numéro des joueurs (esthétisme)
+				i++;
+				System.out.println("Entrez le nom du Joueur "+i+" :" );
+				iterator.setName(getString());
+			}
 		}
-		
 	}
 	
+	//Affiche les mots et score des joueurs
 	public void printWordPlayer(Player[] tabPlayer){
 		System.out.println("\n***************************");
 		for(Player i : this.tabPlayer){
-			System.out.println("Mots du joueur "+i.getName()+" : "+i.getListWord()+" et score : "+i.getScore());
+			System.out.println("Mots de "+i.getName()+" : "+i.getListWord()+" et score : "+i.getScore());
 		}
 		System.out.println("***************************\n");
-
 	}
 	
 
@@ -95,19 +126,14 @@ public class Game implements IGame {
 		letterDraw.firstDraw(this.tabPlayer, alphabet, mutualBag);
 		Player player = whoStart(this.tabPlayer);
 		mutualBag.printMutualBag();
-		
-		//playerStarterDraw(player);
-		//String word = sc.next();
 		turnPlayer(this.tabPlayer);
-		//System.out.println(verifLetterMutualBag(word, this.potCommun));
-		//findWord();
 	}
 	
 	//Affiche quel est le joueur qui commence
 	public Player whoStart(Player[] tabPlayer){
 		tabPlayer = sortArray(tabPlayer);
 		tabPlayer[0].setPlay(true);
-		System.out.println("Le joueur "+tabPlayer[0].getName()+" commence.");
+		System.out.println(tabPlayer[0].getName()+" commence.");
 		return tabPlayer[0];
 	}
 	
@@ -120,7 +146,6 @@ public class Game implements IGame {
 				choiceAction(i);
 			}
 		}
-		
 	}	
 	
 	//Passe le tour du joueur
@@ -147,11 +172,24 @@ public class Game implements IGame {
 	public int choiceAction(int i){
 		int choice = 0;
 		do{
-			printWordPlayer( this.tabPlayer);
-			printMenu();
-		
-			if (sc.hasNextInt()) choice = sc.nextInt();
-	        else {
+			if(tabPlayer[i].getIA() == 1)ia.iaMode = 1;
+			if(tabPlayer[i].getIA() == 0){ia.iaMode = 0; printWordPlayer(this.tabPlayer); printMenu();}
+			//tests pour débug (automatisation de l'IA
+			/*System.out.println("Joueur : "+i);
+			System.out.println("IA : "+tabPlayer[i].getIA());
+			System.out.println(tabPlayer[i].getPlay());*/
+			
+			if(ia.iaMode == 1){
+				if(tabPlayer[i].getIA()== 1 && tabPlayer[i].getPlay() == true)	choice = 1;
+				if(tabPlayer[i].getIA() == 1 && tabPlayer[i].getPlay() == false){
+					choice = 2; 
+					ia.iaMode = 0;
+				}
+				//System.out.println(choice);		
+			}
+			
+			else if(ia.iaMode == 0 && sc.hasNextInt())	choice = sc.nextInt();
+			else{
 	        	System.out.println("La valeur saisie n'est pas un entier!");
 	            sc.next();
 	            continue;
@@ -160,59 +198,31 @@ public class Game implements IGame {
 			switch(choice){
 			case 1:
 				System.out.println("Taper un mot : ");
-				words.findWord(i, sc, mutualBag, tabPlayer, letterDraw);
+				words.findWord(i, sc, mutualBag,tabPlayer, letterDraw);
 				break;
 			case 2: 
-				//
-				//words.stealingWord(tabPlayer[0], "TUTU");
-			
-				
-				//ALEXANDRE
-				//words.testStolenWord(tabPlayer);
-				//FIN ALEXANDRE
 				passTurn(i,tabPlayer);
 				turnPlayer(tabPlayer);	
-				
 				return choice;
-				//break;
 			case 3: 
 				boolean playerPlaying = tabPlayer[i].getPlay();
 				Player player = new Player();
 				
 				for(int j=0; j < tabPlayer.length; j++){
-					
 					if(playerPlaying == true){
-						player = tabPlayer[i];
+						player =tabPlayer[i];
 					}
 				}
 				words.stealingWord(tabPlayer, mutualBag, player);
-				
-				/*String word = ""; 
-				String word2 = "";
-				int val = 0;
-			        word = sc.next();
-			       // word = removeAccent(word);
-			       word2 = sc.next();
-			       // word2 = removeAccent(word2);
-			        System.out.println(word2.endsWith(word));
-			        String[] tokens = word2.split(word);
-			        String newWord = "null";
-			        
-			        for (int a = 0; a < tokens.length; a++){
-			            System.out.println("letttre split "+tokens[a]);
-			        	newWord = new String(tokens[a]).toUpperCase();
-			        }
-			        System.out.println(newWord);*/
-			
-			break;
+				break;
 				}
 				
-		}while((choice != 1 || choice !=2 || choice != 3) && tabPlayer[i].getScore() <10);
+		}while((choice != 1 || choice !=2 || choice != 3) && this.tabPlayer[i].getScore() <5);
+		printWordPlayer(this.tabPlayer);
 		System.out.println("Fin du game");
+		System.out.println("Victoire de "+tabPlayer[i].getName()+" !");
 		return choice;
-		
 	}
-
 
 	//Tri a bulle sur le tableau de joueur pour connaître celui à la plus petite lettre
 	public Player[] sortArray(Player[] tabPlayer){

@@ -6,11 +6,12 @@ import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
+import fr.esiea.Ranaivo_Remy.Game.Core.IA;
 import fr.esiea.Ranaivo_Remy.Game.Core.LetterDraw;
 
 public class Words {
 
+	IA ia = new IA();
 	public Words(){}
 	
 
@@ -84,6 +85,13 @@ public class Words {
 		}
 	}
 	
+
+	/*public void testStolenWord(Player[] tabPlayer){
+		List<String> tabScoreWord = playerListScoreWord(tabPlayer);
+		compareWord(tabScoreWord, "aa");
+	}*/
+
+
 	public void newWord(Scanner sc, String wordToSteal,MutualBag pot, ArrayList<Character> tmpPot, Player target, Player thief, int idWordToSteal, int val){
 		Scanner file;
 		System.out.println("Entrez votre nouveau mot formé à partir du mot "+wordToSteal+" :");
@@ -92,7 +100,9 @@ public class Words {
 		
 		if(newWord.contains(wordToSteal) && newWord.length() > wordToSteal.length()){
 			try {
-				file = new Scanner(new File("C:/Users/Nora/git/Letter_Game/LetterGame/src/main/resources/dico.txt"));
+				File currentDirFile = new File("src/main/resources/dico.txt");
+		    	String helper = currentDirFile.getAbsolutePath();
+				file = new Scanner(new File(helper));
 				searchInDico(file,newWord,wordToSteal,pot,tmpPot,target,thief,idWordToSteal,val);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -135,14 +145,30 @@ public class Words {
 
 	public void findWord(int i, Scanner sc, MutualBag mutualBag, Player[] tabPlayer, LetterDraw letterDraw){
 		String word = ""; 
+		String iaList = "";
 		int val = 0;
-	    word = sc.next();
-	    word = removeAccent(word);
 	    Scanner file;
-			
 	    try {
-				file = new Scanner(new File("C:/Users/Nora/git/Letter_Game/LetterGame/src/main/resources/dico.txt"));
-				searchInDicoBasic(file,word,mutualBag,i,tabPlayer,val,letterDraw);
+	    	File currentDirFile = new File("src/main/resources/dico.txt");
+	    	String helper = currentDirFile.getAbsolutePath();
+				file = new Scanner(new File(helper));
+				if(tabPlayer[i].getIA()!=1){
+				    word = sc.next();
+				    word = removeAccent(word);
+				    searchInDicoBasic(file,word,mutualBag,i,tabPlayer,val,letterDraw);
+				}
+				//C'est ici que l'IA entre en jeu : on initialise le potCommun de l'IA et on concatène chaque lettre du potCommun dans un String (iaList)
+				if(tabPlayer[i].getIA()==1){
+					this.ia.setIaBag(mutualBag.getMutualBag());
+					//System.out.println("pot commun de l'IA : "+this.ia.getIaBag());
+					for(Character iterator : this.ia.getIaBag()){
+						iaList += iterator;
+					}
+					//je laisse afficher chaque mot entré par l'IA histoire d'avoir une meilleure visibilité pour les joueurs
+					//System.out.println(iaList);
+					//détail de la fonction en dessous, mêmes paramètres que ta fonction Basic sauf word qui est devenu iaList
+					searchInDicoIA(iaList, file, mutualBag,  i,  tabPlayer, val, letterDraw);
+				}
 			            
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -158,10 +184,26 @@ public class Words {
 			if(line.indexOf(word.toUpperCase()) != -1 && word.length() == size && mutualBag.verifLetterMutualBag(line,mutualBag.getMutualBag()) == true){						
 				statPlayer(i,tabPlayer,line);
 	            val = 1;  
-	        	letterDraw.oneDraw(tabPlayer [i], mutualBag);
+	            if(tabPlayer[i].getScore() < 10)letterDraw.oneDraw(tabPlayer[i], mutualBag);
 	        }
 	     }
 	        if(val == 0) System.out.println("Le mot n'est pas valide");
+	}
+	
+	//fonction de l'IA qui va chercher tous les mots du dico similaires à "iaList", iaList représentant le potCommun mais en STRING
+	public void searchInDicoIA(String iaList, Scanner file, MutualBag mutualBag, int i, Player[] tabPlayer, int val,LetterDraw letterDraw){
+		while(file.hasNextLine() && tabPlayer[i].getScore() < 5){
+			String line = file.nextLine().toUpperCase();
+			line = removeAccent(line);
+			//c'est l'expression régulière utilisée dans le "if" qui gère le fait de pouvoir matcher iaList avec les mots du dico.
+		if(line.matches("["+iaList+"]+")==true && mutualBag.verifLetterMutualBag(line,mutualBag.getMutualBag()) == true){
+			System.out.println(line);
+			statPlayer(i, tabPlayer,line);
+            val = 1;
+            if(tabPlayer[i].getScore() < 5)letterDraw.oneDraw(tabPlayer[i], mutualBag);
+			}
+		}
+		tabPlayer[i].setPlay(false);
 	}
 	
 	public void statPlayer(int i, Player[] tabPlayer, String line){

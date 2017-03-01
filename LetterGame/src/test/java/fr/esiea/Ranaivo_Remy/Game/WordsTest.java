@@ -20,17 +20,11 @@ public class WordsTest {
 		assertEquals("reve",words.removeAccent("rêve"));
 	}
 
-
+	
 	@Test
-	public final void testPlayerListScoreWord() {
-		fail("Not yet implemented"); // TODO
+	public final void testPlayerListScoreWord(){
+		//Todo
 	}
-
-	@Test
-	public final void testWhichWordStolen() {
-		fail("Not yet implemented"); // TODO
-	}
-
 	
 	@Before
 	public final void beforeTestWhoIsStolen(){
@@ -45,46 +39,6 @@ public class WordsTest {
 	public final void testWhoIsStolen() {		
 		assertEquals(target.getName(),words.whoIsStolen(tabPlayer, "Target").getName());
 		
-	}
-
-	@Test
-	public final void testStealingWord() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testWhichWordToSteal() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testNewWord() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testSearchInDico() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testSucceedTheft() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testFindWord() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testSearchInDicoBasic() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testStatPlayer() {
-		fail("Not yet implemented"); // TODO
 	}
 
 }
