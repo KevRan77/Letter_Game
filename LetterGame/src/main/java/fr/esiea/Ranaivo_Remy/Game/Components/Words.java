@@ -2,6 +2,7 @@ package fr.esiea.Ranaivo_Remy.Game.Components;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.URL;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -104,7 +105,9 @@ public class Words {
 		
 		if(newWord.contains(wordToSteal) && newWord.length() > wordToSteal.length()){
 			try {
-				file = new Scanner(new File("C:/Users/Kevin-R/git/Letter_Game/LetterGame/src/main/resources/dico.txt"));
+				File currentDirFile = new File("src/main/resources/dico.txt");
+		    	String helper = currentDirFile.getAbsolutePath();
+				file = new Scanner(new File(helper));
 				searchInDico(file,newWord,wordToSteal,pot,tmpPot,target,thief,idWordToSteal,val);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -151,7 +154,9 @@ public class Words {
 		int val = 0;
 	    Scanner file;
 	    try {
-				file = new Scanner(new File("C:/Users/Kevin-R/git/Letter_Game/LetterGame/src/main/resources/dico.txt"));
+	    	File currentDirFile = new File("src/main/resources/dico.txt");
+	    	String helper = currentDirFile.getAbsolutePath();
+				file = new Scanner(new File(helper));
 				if(tabPlayer[i].getIA()!=1){
 				    word = sc.next();
 				    word = removeAccent(word);
