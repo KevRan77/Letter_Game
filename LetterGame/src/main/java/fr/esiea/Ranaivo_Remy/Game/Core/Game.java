@@ -11,6 +11,7 @@ import fr.esiea.Ranaivo_Remy.Game.Interface.IGame;
 public class Game implements IGame {
 	// *****  Variables  ***** \\
 	int keyEnter, numberPlayer, gameMode;
+	IA ia = new IA();
 	
 	Player[] tabPlayer = new Player[numberPlayer];
 	String[] playerName = new String[numberPlayer];
@@ -59,6 +60,7 @@ public class Game implements IGame {
 			}
 			else if(gameMode == 2){
 				this.numberPlayer = 2;
+				this.ia.iaMode = 1;
 			}
 			
 			this.tabPlayer = new Player[this.numberPlayer];
@@ -178,14 +180,20 @@ public class Game implements IGame {
 	public int choiceAction(int i){
 		int choice = 0;
 		do{
+			if(tabPlayer[i].getIA() == 1)ia.iaMode = 1;
+			if(tabPlayer[i].getIA() == 0){ia.iaMode = 0; printWordPlayer(this.tabPlayer); printMenu();}
+			//tests pour débug (automatisation de l'IA
+			/*System.out.println("Joueur : "+i);
+			System.out.println("IA : "+tabPlayer[i].getIA());
+			System.out.println(tabPlayer[i].getPlay());*/
 			
-			printWordPlayer(this.tabPlayer);
-			printMenu();
-			/*System.out.println(i);
-			System.out.println(tabPlayer[i].getIA());*/
+			if(ia.iaMode == 1){
+				if(tabPlayer[i].getIA()==1 && tabPlayer[i].getPlay() == true)choice = 1;
+				if(tabPlayer[i].getIA() == 1 && tabPlayer[i].getPlay() == false){choice = 2; ia.iaMode = 0;}
+				//System.out.println(choice);		
+			}
 			
-			//if(this.tabPlayer[i].getIA()==1)choice = 2;
-			if(sc.hasNextInt())choice = sc.nextInt();
+			else if(ia.iaMode == 0 && sc.hasNextInt())choice = sc.nextInt();
 			else{
 	        	System.out.println("La valeur saisie n'est pas un entier!");
 	            sc.next();

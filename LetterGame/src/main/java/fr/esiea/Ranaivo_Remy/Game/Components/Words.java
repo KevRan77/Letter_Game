@@ -160,12 +160,12 @@ public class Words {
 				//C'est ici que l'IA entre en jeu : on initialise le potCommun de l'IA et on concatène chaque lettre du potCommun dans un String (iaList)
 				if(tabPlayer[i].getIA()==1){
 					this.ia.setIaBag(mutualBag.getMutualBag());
-					System.out.println("pot commun de l'IA : "+this.ia.getIaBag());
+					//System.out.println("pot commun de l'IA : "+this.ia.getIaBag());
 					for(Character iterator : this.ia.getIaBag()){
 						iaList += iterator;
 					}
 					//je laisse afficher chaque mot entré par l'IA histoire d'avoir une meilleure visibilité pour les joueurs
-					System.out.println(iaList);
+					//System.out.println(iaList);
 					//détail de la fonction en dessous, mêmes paramètres que ta fonction Basic sauf word qui est devenu iaList
 					searchInDicoIA(iaList, file, mutualBag,  i,  tabPlayer, val, letterDraw);
 				}
@@ -184,7 +184,7 @@ public class Words {
 			if(line.indexOf(word.toUpperCase()) != -1 && word.length() == size && mutualBag.verifLetterMutualBag(line,mutualBag.getMutualBag()) == true){						
 				statPlayer(i,tabPlayer,line);
 	            val = 1;  
-	        	letterDraw.oneDraw(tabPlayer [i], mutualBag);
+	            if(tabPlayer[i].getScore() < 5)letterDraw.oneDraw(tabPlayer[i], mutualBag);
 	        }
 	     }
 	        if(val == 0) System.out.println("Le mot n'est pas valide");
@@ -200,10 +200,10 @@ public class Words {
 			System.out.println(line);
 			statPlayer(i, tabPlayer,line);
             val = 1;
-        	letterDraw.oneDraw(tabPlayer[i], mutualBag);
+            if(tabPlayer[i].getScore() < 5)letterDraw.oneDraw(tabPlayer[i], mutualBag);
 			}
 		}
-		//tabPlayer[i].setPlay(false);
+		tabPlayer[i].setPlay(false);
 	}
 	
 	public void statPlayer(int i, Player[] tabPlayer, String line){
