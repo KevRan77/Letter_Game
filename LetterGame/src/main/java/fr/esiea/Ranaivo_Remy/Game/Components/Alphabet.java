@@ -18,7 +18,7 @@ public enum Alphabet{
     private static char[] tab = null;
     private static Random rand = new Random();	
     
-    // ***** MÃ©thodes ***** \\
+    // ***** Méthodes ***** \\
     private Alphabet(int occ, int numLetter, char letter){
         this.occ = occ;
         this.numLetter = numLetter;

@@ -9,7 +9,8 @@ import fr.esiea.Ranaivo_Remy.Game.Interface.IGame;
 
 public class Game implements IGame {
 	// *****  Variables  ***** \\
-	int keyEnter, numberPlayer, gameMode;
+	int keyEnter, gameMode;
+	int numberPlayer = 0;
 	IA ia = new IA();
 	
 	Player[] tabPlayer = new Player[numberPlayer];
@@ -22,20 +23,20 @@ public class Game implements IGame {
 	
 	Scanner sc = new Scanner(System.in);
 	
-	// *****  Méthodes ***** \\
+	// *****  Methodes ***** \\
 	
-	//Méthode Game qui lance la première partie du jeu
+	//Methode Game qui lance la premiere partie du jeu
 	public Game(){
 		Alphabet[] alphabet = Alphabet.values();
 		startGame(alphabet);
 	}
 	
-	//Récupère un mot écris au clavier (nom du joueur)
+	//Recupere un mot ecris au clavier (nom du joueur)
 	public String getString(){
 		return sc.next();
 	}
 	
-	//Permet à  l'utilisateur d'entrer le nombre de joueur pour la partie
+	//Permet a l'utilisateur d'entrer le nombre de joueur pour la partie
 	public int setNbPlayer(){
 		do{
 			System.out.println("1) Joueur vs Joueur");
@@ -72,11 +73,9 @@ public class Game implements IGame {
 	public void initTabPlayer(int gameMode){
 		for(int i = 0; i<this.numberPlayer; i++){
 			this.tabPlayer[i] = new Player();
-		//on attribue d'office la valeur 1 pour l'IA dans le cas où on est dans le mode Joueur vs IA histoire de les différencier
+		//on attribue d'office la valeur 1 pour l'IA dans le cas ou on est dans le mode Joueur vs IA histoire de les différencier
 			if(gameMode == 2 && i == 1)this.tabPlayer[i].setIA(1);
 			this.tabPlayer[i].listWord.remove("null");
-		//on attribue d'office la valeur 1 pour l'IA dans le cas où on est dans le mode Joueur vs IA histoire de les différencier
-			if(gameMode == 2 && i == 1) this.tabPlayer[i].setIA(1);
 		}
 	}
 	
@@ -85,7 +84,7 @@ public class Game implements IGame {
 		this.mutualBag.getMutualBag().remove(null);
 	}
 	
-	//Récupère le nom de chaque joueur et stocke dans un tableau
+	//Recupere le nom de chaque joueur et stocke dans un tableau
 	public void setNameEnter(){
 		int j = 0;
 		int i = 0;
@@ -176,20 +175,17 @@ public class Game implements IGame {
 	public int choiceAction(int i){
 		int choice = 0;
 		do{
-			if(tabPlayer[i].getIA() == 1)ia.iaMode = 1;
-			if(tabPlayer[i].getIA() == 0){ia.iaMode = 0; printWordPlayer(this.tabPlayer); printMenu();}
-			//tests pour débug (automatisation de l'IA
-			/*System.out.println("Joueur : "+i);
-			System.out.println("IA : "+tabPlayer[i].getIA());
-			System.out.println(tabPlayer[i].getPlay());*/
-			
+			if(tabPlayer[i].getIA() == 1) ia.iaMode = 1;
+			if(tabPlayer[i].getIA() == 0){
+				ia.iaMode = 0; printWordPlayer(this.tabPlayer); 
+				printMenu();
+				}			
 			if(ia.iaMode == 1){
 				if(tabPlayer[i].getIA()== 1 && tabPlayer[i].getPlay() == true)	choice = 1;
 				if(tabPlayer[i].getIA() == 1 && tabPlayer[i].getPlay() == false){
 					choice = 2; 
 					ia.iaMode = 0;
-				}
-				//System.out.println(choice);		
+				}	
 			}
 			
 			else if(ia.iaMode == 0 && sc.hasNextInt())choice = sc.nextInt();
@@ -221,14 +217,14 @@ public class Game implements IGame {
 				break;
 				}
 				
-		}while((choice != 1 || choice !=2 || choice != 3) && this.tabPlayer[i].getScore() <5);
+		}while((choice != 1 || choice != 3) && this.tabPlayer[i].getScore() <5);
 		printWordPlayer(this.tabPlayer);
 		System.out.println("Fin du game");
 		System.out.println("Victoire de "+tabPlayer[i].getName()+" !");
 		return choice;
 	}
 
-	//Tri a bulle sur le tableau de joueur pour connaître celui à la plus petite lettre
+	//Tri a bulle sur le tableau de joueur pour connaitre celui a la plus petite lettre
 	public Player[] sortArray(Player[] tabPlayer){
 		int i,j;
 		Player flag;
@@ -245,7 +241,5 @@ public class Game implements IGame {
 		return tabPlayer;
 	}
 
-
-	
 	
 }

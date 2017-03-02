@@ -12,13 +12,15 @@ import fr.esiea.Ranaivo_Remy.Game.Core.LetterDraw;
 public class Words {
 
 	IA ia = new IA();
+	
 	public Words(){}
 	
-
+	//Méthode pour enlever les accents
 	public String removeAccent(String source) {
 		return Normalizer.normalize(source, Normalizer.Form.NFD).replaceAll("[\u0300-\u036F]", "");
 	}
 	
+	//Méthode qui retourne un tableau des scores des joueurs
 	public List<String> playerListScoreWord(Player[] tabPlayer){
 		List<String> tabScoreWord = new ArrayList<String>();
 		for(int i=0; i<tabPlayer.length; i++){
@@ -31,7 +33,7 @@ public class Words {
 		return tabScoreWord;
 	}
 
-
+	//Méthode qui retourne le mot que l'on souhaite voler
 	public int whichWordStolen(Player player, String sameWord){
 		int idWord = 20;
 		for(int i = 0; i < player.listWord.size(); i++){
@@ -42,6 +44,7 @@ public class Words {
 		return idWord;
 	}
 	
+	//Méthode qui retourne le joueur que l'on souhaite voler
 	public Player whoIsStolen(Player[] tabPlayer, String namePlayer){
 		Player target = null;
 		for(int i = 0; i < tabPlayer.length; i++){
@@ -52,10 +55,10 @@ public class Words {
 		return target;
 	}
 
+	//Methode qui vole un mot
 	public void stealingWord(Player[] tabPlayer, MutualBag pot, Player thief){
 		System.out.println("A quel joueur voulez vous voler un mot ?");
 		Scanner sc = new Scanner(System.in);
-		int val =0;
 		String namePlayer = sc.next();
 		Player target = new Player();
 		target = whoIsStolen(tabPlayer, namePlayer);
@@ -64,45 +67,31 @@ public class Words {
 		
 		if(target == null){
 			System.out.println("Le joueur "+namePlayer+" n'existe pas");
-			//TROUVER UN MOYEN DE QUITTER ET REVENIR AU MENU
 		}
 		else{
-			whichWordToSteal(sc,target,pot,tmpPot,thief,val);
+			whichWordToSteal(sc,target,pot,tmpPot,thief);
 		}
 	}
 	
-	public void whichWordToSteal(Scanner sc, Player target,MutualBag pot, ArrayList<Character> tmpPot, Player thief, int val ){
+	//Methode qui indique quel mot est à voler
+	public void whichWordToSteal(Scanner sc, Player target,MutualBag pot, ArrayList<Character> tmpPot, Player thief){
 		System.out.println("Quel mot voulez vous voler ?");
 		String wordToSteal = sc.next();
 		wordToSteal = wordToSteal.toUpperCase();
 		int idWordToSteal = whichWordStolen(target, wordToSteal);
 		
 		if(idWordToSteal == 20){
-			System.out.println("Le joueur cible ne possÃ¨de pas le mot "+wordToSteal);
+			System.out.println("Le joueur cible ne possède pas le mot "+wordToSteal);
 		}
 		else{
-			newWord(sc,wordToSteal,pot,tmpPot,target,thief,idWordToSteal,val);
+			newWord(sc,wordToSteal,pot,tmpPot,target,thief,idWordToSteal);
 		}
 	}
 	
-
-
-	/*public void testStolenWord(Player[] tabPlayer){
-		List<String> tabScoreWord = playerListScoreWord(tabPlayer);
-		compareWord(tabScoreWord, "aa");
-	}*/
-
-
-
-	/*public void testStolenWord(Player[] tabPlayer){
-		List<String> tabScoreWord = playerListScoreWord(tabPlayer);
-		compareWord(tabScoreWord, "aa");
-	}*/
-
-
-	public void newWord(Scanner sc, String wordToSteal,MutualBag pot, ArrayList<Character> tmpPot, Player target, Player thief, int idWordToSteal, int val){
+	//Méthode qui valide le nouveau mot 
+	public void newWord(Scanner sc, String wordToSteal,MutualBag pot, ArrayList<Character> tmpPot, Player target, Player thief, int idWordToSteal){
 		Scanner file;
-		System.out.println("Entrez votre nouveau mot formÃ© Ã  partir du mot "+wordToSteal+" :");
+		System.out.println("Entrez votre nouveau mot formé à  partir du mot "+wordToSteal+" :");
 		String newWord = sc.next();
 		newWord = newWord.toUpperCase();
 		
@@ -112,7 +101,7 @@ public class Words {
 				File currentDirFile = new File("src/main/resources/dico.txt");
 		    	String helper = currentDirFile.getAbsolutePath();
 				file = new Scanner(new File(helper));
-				searchInDico(file,newWord,wordToSteal,pot,tmpPot,target,thief,idWordToSteal,val);
+				searchInDico(file,newWord,wordToSteal,pot,tmpPot,target,thief,idWordToSteal);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
@@ -121,8 +110,9 @@ public class Words {
 		}
 	}
 	
-	public void searchInDico(Scanner file, String newWord, String wordToSteal,MutualBag pot, ArrayList<Character> tmpPot, Player target, Player thief, int idWordToSteal, int val ){
-		
+	//Méthode qui vérifie que le mot est présent dans le dictionnaire
+	public void searchInDico(Scanner file, String newWord, String wordToSteal,MutualBag pot, ArrayList<Character> tmpPot, Player target, Player thief, int idWordToSteal){
+		int val =0;
 		while(file.hasNextLine()){
 			String line = file.nextLine().toUpperCase();
 			line = removeAccent(line);
@@ -139,7 +129,7 @@ public class Words {
 		}
 	}
 	
-	
+	//Méthode qui valide le vol et change les caractéristiques des deux joueurs
 	public void succeedTheft(MutualBag pot, ArrayList<Character> tmpPot, Player target, Player thief, String newWord, int idWordToSteal ){
 		System.out.println("Vol : ajout du mot dans la liste");
 		pot.getMutualBag().removeAll(pot.getMutualBag());
@@ -150,8 +140,7 @@ public class Words {
 		thief.listWord.add(newWord);
 	}
 	
-	
-
+	//Méthode qui vérifie si le mot est valide ou pas
 	public void findWord(int i, Scanner sc, MutualBag mutualBag, Player[] tabPlayer, LetterDraw letterDraw){
 		String word = ""; 
 		String iaList = "";
@@ -169,22 +158,17 @@ public class Words {
 				//C'est ici que l'IA entre en jeu : on initialise le potCommun de l'IA et on concatÃ¨ne chaque lettre du potCommun dans un String (iaList)
 				if(tabPlayer[i].getIA()==1){
 					this.ia.setIaBag(mutualBag.getMutualBag());
-					//System.out.println("pot commun de l'IA : "+this.ia.getIaBag());
 					for(Character iterator : this.ia.getIaBag()){
 						iaList += iterator;
 					}
-					//je laisse afficher chaque mot entrÃ© par l'IA histoire d'avoir une meilleure visibilitÃ© pour les joueurs
-					//System.out.println(iaList);
-					//dÃ©tail de la fonction en dessous, mÃªmes paramÃ¨tres que ta fonction Basic sauf word qui est devenu iaList
-					searchInDicoIA(iaList, file, mutualBag,  i,  tabPlayer, val, letterDraw);
-
+					searchInDicoIA(iaList, file, mutualBag,  i,  tabPlayer, letterDraw);
 				}			            
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}			
 	}
 	
-	
+	//Méthode qui permet de parcourir le dico
 	public void searchInDicoBasic(Scanner file, String word, MutualBag mutualBag, int i, Player[] tabPlayer, int val,LetterDraw letterDraw){
 		while(file.hasNextLine()){
 			String line = file.nextLine().toUpperCase();
@@ -202,22 +186,22 @@ public class Words {
 	        if(val == 0) System.out.println("Le mot n'est pas valide");
 	}
 	
-	//fonction de l'IA qui va chercher tous les mots du dico similaires Ã  "iaList", iaList reprÃ©sentant le potCommun mais en STRING
-	public void searchInDicoIA(String iaList, Scanner file, MutualBag mutualBag, int i, Player[] tabPlayer, int val,LetterDraw letterDraw){
+	//Méthode de l'IA qui va chercher tous les mots du dico similaires à  "iaList", iaList représentant le potCommun mais en STRING
+	public void searchInDicoIA(String iaList, Scanner file, MutualBag mutualBag, int i, Player[] tabPlayer,LetterDraw letterDraw){
 		while(file.hasNextLine() && tabPlayer[i].getScore() < 5){
 			String line = file.nextLine().toUpperCase();
 			line = removeAccent(line);
-			//c'est l'expression rÃ©guliÃ¨re utilisÃ©e dans le "if" qui gÃ¨re le fait de pouvoir matcher iaList avec les mots du dico.
+			//c'est l'expression régulière utilisée dans le "if" qui gère le fait de pouvoir matcher iaList avec les mots du dico.
 		if(line.matches("["+iaList+"]+")==true && mutualBag.verifLetterMutualBag(line,mutualBag.getMutualBag()) == true){
 			System.out.println(line);
 			statPlayer(i, tabPlayer,line);
-            val = 1;
-            if(tabPlayer[i].getScore() < 5)letterDraw.oneDraw(tabPlayer[i], mutualBag);
+            if(tabPlayer[i].getScore() < 5) letterDraw.oneDraw(tabPlayer[i], mutualBag);
 			}
 		}
 		tabPlayer[i].setPlay(false);
 	}
 	
+	//Méthode qui change les charactéristiques du joueur (score, liste de mot)
 	public void statPlayer(int i, Player[] tabPlayer, String line){
 		tabPlayer[i].score++;
 		tabPlayer[i].setListWord(tabPlayer[i].listWord);
