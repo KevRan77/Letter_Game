@@ -14,7 +14,7 @@ public class Words {
 	IA ia = new IA();
 	
 	public Words(){}
-	
+
 	//Méthode pour enlever les accents
 	public String removeAccent(String source) {
 		return Normalizer.normalize(source, Normalizer.Form.NFD).replaceAll("[\u0300-\u036F]", "");
@@ -43,7 +43,7 @@ public class Words {
 		}
 		return idWord;
 	}
-	
+
 	//Méthode qui retourne le joueur que l'on souhaite voler
 	public Player whoIsStolen(Player[] tabPlayer, String namePlayer){
 		Player target = null;
