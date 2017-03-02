@@ -2,14 +2,10 @@ package fr.esiea.Ranaivo_Remy.Game.Components;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.net.URL;
 import java.text.Normalizer;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import fr.esiea.Ranaivo_Remy.Game.Core.IA;
 import fr.esiea.Ranaivo_Remy.Game.Core.LetterDraw;
 

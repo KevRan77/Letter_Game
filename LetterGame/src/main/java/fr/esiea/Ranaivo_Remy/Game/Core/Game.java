@@ -128,7 +128,7 @@ public class Game implements IGame {
 	public void startGame(Alphabet[] alphabet){
 		setNameEnter();
 		letterDraw.firstDraw(this.tabPlayer, alphabet, mutualBag);
-		Player player = whoStart(this.tabPlayer);
+		whoStart(this.tabPlayer);
 		mutualBag.printMutualBag();
 		turnPlayer(this.tabPlayer);
 	}

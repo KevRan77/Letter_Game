@@ -1,11 +1,11 @@
 package fr.esiea.Ranaivo_Remy.Game;
 
-import static org.junit.Assert.*;
+/*import static org.junit.Assert.*;
 import org.junit.Before;
 import java.util.Scanner;
 import org.junit.Test;
 import fr.esiea.Ranaivo_Remy.Game.Components.Player;
-import fr.esiea.Ranaivo_Remy.Game.Core.Game;
+import fr.esiea.Ranaivo_Remy.Game.Core.Game;*/
 
  
 public class GameTest {
