@@ -1,5 +1,13 @@
 # TP Architecture Logicielle / Inf4043 - 2017 - Jeux de lettres
 
+-  Binôme  : RANAIVO Kevin et REMY Nora
+
+## Règles du jeux 
+
+
+_______________________________________________________________________________________________________________________________________
+# TP Architecture Logicielle / Inf4043 - 2017 - Jeux de lettres
+
 - Date de rendu : 12/02/2017 23h - pas de retard accepté
 - Binôme accepté
 - Contacts : 
