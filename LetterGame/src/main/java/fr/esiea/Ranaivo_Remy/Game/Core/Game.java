@@ -31,6 +31,10 @@ public class Game implements IGame {
 		startGame(alphabet);
 	}
 	
+	public Game(int test){
+		
+	}
+	
 	//Recupere un mot ecris au clavier (nom du joueur)
 	public String getString(){
 		return sc.next();
@@ -105,7 +109,7 @@ public class Game implements IGame {
 				iterator.setName(getString());
 			}
 			else{
-				//Ajout du numéro des joueurs (esthétisme)
+				//Ajout du numero des joueurs (esthetisme)
 				i++;
 				System.out.println("Entrez le nom du Joueur "+i+" :" );
 				iterator.setName(getString());
@@ -143,7 +147,7 @@ public class Game implements IGame {
 	//Permet au joueur de jouer 
 	public void turnPlayer(Player[] tabPlayer){	
 		for(int i = 0; i < tabPlayer.length; i++){
-			if(tabPlayer[i].getPlay() == true && tabPlayer[i].getScore() <5){
+			if(tabPlayer[i].getPlay() == true && tabPlayer[i].getScore() <10){
 				System.out.println(tabPlayer[i].getName()+" joue");
 				letterDraw.playerStarterDraw(tabPlayer[i], mutualBag);
 				choiceAction(i);
@@ -217,7 +221,7 @@ public class Game implements IGame {
 				break;
 				}
 				
-		}while((choice != 1 || choice != 3) && this.tabPlayer[i].getScore() <5);
+		}while((choice != 1 || choice != 3) && this.tabPlayer[i].getScore() <10);
 		printWordPlayer(this.tabPlayer);
 		System.out.println("Fin du game");
 		System.out.println("Victoire de "+tabPlayer[i].getName()+" !");

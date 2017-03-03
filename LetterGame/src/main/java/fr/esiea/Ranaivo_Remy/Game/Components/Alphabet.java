@@ -18,7 +18,7 @@ public enum Alphabet{
     private static char[] tab = null;
     private static Random rand = new Random();	
     
-    // ***** Méthodes ***** \\
+    // ***** Methodes ***** \\
     private Alphabet(int occ, int numLetter, char letter){
         this.occ = occ;
         this.numLetter = numLetter;
@@ -40,7 +40,7 @@ public enum Alphabet{
     	this.numLetter = numLetter;
     }
     
-    private static void fillTab(){
+    private static void fillArray(){
         int n = 0;
         
         for (Alphabet v : Alphabet.values())
@@ -56,7 +56,7 @@ public enum Alphabet{
     
     public double getFrequency(){
         if (tab == null)
-            fillTab();
+            fillArray();
         
         return ((double) occ) / tab.length;
     }
@@ -65,7 +65,7 @@ public enum Alphabet{
     
     public static char random(){
         if (tab == null)
-            fillTab();
+            fillArray();
         
         return tab[rand.nextInt(tab.length)];
     }

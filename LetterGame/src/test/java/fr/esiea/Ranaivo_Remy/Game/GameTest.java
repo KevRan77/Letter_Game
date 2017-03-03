@@ -1,72 +1,21 @@
 package fr.esiea.Ranaivo_Remy.Game;
 
-/*import static org.junit.Assert.*;
-import org.junit.Before;
-import java.util.Scanner;
 import org.junit.Test;
 import fr.esiea.Ranaivo_Remy.Game.Components.Player;
-import fr.esiea.Ranaivo_Remy.Game.Core.Game;*/
+import fr.esiea.Ranaivo_Remy.Game.Core.Game;
+import static org.junit.Assert.*;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 
  
 public class GameTest {
 	
-
-/*	Game test = new Game();
+	Game test = new Game(1);
 	
-=======
-	@Test
-	public final void testGame() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testGetInt() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testGetString() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	Game test = new Game();
-	@Test
-	public final void testSetNbPlayer() {
-		//Scanner sc = new Scanner(System.in);
-		//int nbPlayer = sc.nextInt();
-		
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testInitTabPlayer() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testInitMutualBag() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testSetNameEnter() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testPrintWordPlayer() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testStartGame() {
-		fail("Not yet implemented"); // TODO
-	}
-
->>>>>>> refs/remotes/origin/master
+	//Test qui verifie que le bon joueur commence
 	@Test
 	public final void testWhoStart() {
-		//Game test = new Game();
 		Player[] tabPlayer = new Player[2];
 		tabPlayer[0] = new Player();
 		tabPlayer[1] = new Player();
@@ -81,33 +30,10 @@ public class GameTest {
 
 	
 	}
-
-<<<<<<< HEAD
-=======
-	@Test
-	public final void testTurnPlayer() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testPassTurn() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testPrintMenu() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testChoiceAction() {
-		fail("Not yet implemented"); // TODO
-	}
->>>>>>> refs/remotes/origin/master
-
+	
+	//Test qui verifie que le tableau est bien trie
 	@Test
 	public final void testSortArray() {
-		//Game test = new Game();
 		Player[] tabPlayer = new Player[2];
 		tabPlayer[0] = new Player();
 		tabPlayer[1] = new Player();
@@ -121,14 +47,23 @@ public class GameTest {
 			flag = true;
 		}
 		
-		assertTrue("Test réussi", flag);
+		assertTrue("Tableau trie", flag);
 	}
-<<<<<<< HEAD
-*/
-
-	//@Test
-	/*public final void testMutualBag() {
-		fail("Not yet implemented"); // TODO
-	}*/
+	
+	//Test qui verifie qu'on entre bien dans le mode ia
+	@Test
+	public final void setNbPlayer(){
+		InputStream stdin = System.in;
+		try{
+		System.setIn(new ByteArrayInputStream("2".getBytes()));
+		Game test = new Game(1);
+		int mode = test.setNbPlayer();
+		assertEquals(2,mode);
+		}finally{
+		System.setIn(stdin);
+		}
+	}
+	
+	
 
 }

@@ -26,9 +26,10 @@ public class LetterDrawTest {
 		letterDraw.oneDraw(target1, mutualBag1);
 	}
 	
+	//Test qui verifie que le mutualbag n'est pas vide => une lettre a ete ajoutee
 	@Test
 	public final void testOneDraw() {
-		assertNotNull("MutualBag n'est plus vide car une lettre a été piochée", mutualBag1.getMutualBag());
+		assertNotNull("MutualBag n'est plus vide car une lettre a ete piochee", mutualBag1.getMutualBag());
 	}
 	
 	@Before
@@ -36,9 +37,10 @@ public class LetterDrawTest {
 		mutualBag2.getMutualBag().clear();
 		letterDraw.playerStarterDraw(target2, mutualBag2);
 	}
+	//Test qui verifie que le mutualbag n'est pas vide => deux lettres ont ete ajoutees
 	@Test
 	public void testPlayerStarterDraw(){
-		assertNotNull("MutualBag n'est plus vide car 2 lettres ont été piochées", mutualBag2.getMutualBag());
+		assertNotNull("MutualBag n'est plus vide car 2 lettres ont ete piochees", mutualBag2.getMutualBag());
 	}
 	
 	@Before
@@ -49,9 +51,10 @@ public class LetterDrawTest {
 		
 		letterDraw.firstDraw(tabPlayer, alphabet,mutualBag3);
 	}
+	//Test qui verifie que le mutualbag n'est pas vide => lettre du tirage est ajoutee
 	@Test
 	public void testFirstDraw(){
-		assertNotNull("MutualBag n'est plus vide car 2 lettres ont été piochées", mutualBag3.getMutualBag());
+		assertNotNull("MutualBag n'est plus vide car 1 lettre a ete piochee", mutualBag3.getMutualBag());
 	}
 
 }

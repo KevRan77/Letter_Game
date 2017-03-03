@@ -24,23 +24,23 @@ public class MutualBagTest {
 		mutualBagTest.setMutualBag(list);
 	}
 	
+	//Test qui verifie que la methode ajoute bien une lettre dans le mutualbag
 	@Test
 	public final void testMutualBagAddLetter() {
 		char letter = 'a';
 		
 		mutualBag.mutualBagAddLetter(letter);
 		assertEquals(mutualBagTest.getMutualBag(),mutualBag.getMutualBag());
-		//System.out.println(mutualBagTest.getMutualBag());
-		//System.out.println(mutualBag.getMutualBag());
 	}
 	
+	//Test qui vérifie si la lettre est dans le mutualbag
 	@Test
 	public final void testVerifLetterMutualBag() {
 		String word = "a";
 		ArrayList<Character> list = new ArrayList<Character>();
 		list.add('a');
 		mutualBagTest.setMutualBag(list);
-		assertTrue("Should return true if letter in the mutualBag",mutualBagTest.verifLetterMutualBag(word, list));
+		assertTrue("Retourne true s'il y a la lettre dans le mutualBag",mutualBagTest.verifLetterMutualBag(word, list));
 	}
 
 

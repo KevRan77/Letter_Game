@@ -7,7 +7,7 @@ public class MutualBag {
 	 //Singleton
     private static MutualBag instanceMutualBag = new MutualBag();
 	
-    //Ajout d'un élément null à mutualbag
+    //Ajout d'un element null à mutualbag
 	public MutualBag(){
 		this.mutualBag.add(null);
 	}
@@ -32,7 +32,7 @@ public class MutualBag {
 			this.mutualBag.add(letter); 
 	}
 	
-	//Vérification des lettres présentes ou non dans le pot commun
+	//Verification des lettres presentes ou non dans le pot commun
 	public Boolean verifLetterMutualBag(String word, ArrayList<Character> mutualBag){
 		char[] tabChar;
 		boolean flag = true;
