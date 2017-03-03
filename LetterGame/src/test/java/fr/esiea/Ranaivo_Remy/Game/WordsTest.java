@@ -32,7 +32,7 @@ public class WordsTest {
 	@Test
 	//teste si la fonction ignore bien les accents
 	public final void testRemoveAccent() {
-		assertEquals("reve",words.removeAccent("rêve"));
+		assertEquals("reve",words.removeAccent("rÃªve"));
 	}
 
 	
