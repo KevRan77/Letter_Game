@@ -126,7 +126,7 @@ public class WordsTest {
     	try {
 			Scanner file = new Scanner(new File(helper));
 			words.searchInDicoBasic(file, line, mutualBag, i, tabPlayer, val, letterdraw);
-			assertEquals(1,tabPlayer[i].getVal());
+			assertEquals(1,tabPlayer[0].getVal());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -143,7 +143,7 @@ public class WordsTest {
 		try {
 			Scanner file = new Scanner(new File(helper));
 			words.searchInDicoIA(iaList, file, mutualBag, i, tabPlayer,letterdraw);
-			assertEquals(1,tabPlayer[i].getVal());
+			assertEquals(1,tabPlayer[0].getVal());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

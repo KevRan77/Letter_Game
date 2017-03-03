@@ -182,7 +182,6 @@ public class Words {
 	            
 	            if(tabPlayer[i].getScore() < 10 )letterDraw.oneDraw(tabPlayer[i], mutualBag);
 
-	            if(tabPlayer[i].getScore() < 10)letterDraw.oneDraw(tabPlayer[i], mutualBag);
 	        }
 	     }
 	        if(val == 0) System.out.println("Le mot n'est pas valide");
@@ -193,8 +192,9 @@ public class Words {
 		while(file.hasNextLine() && tabPlayer[i].getScore() < 10){
 			String line = file.nextLine().toUpperCase();
 			line = removeAccent(line);
+			int size = line.length();
 			//c'est l'expression reguliere utilisee dans le "if" qui gere le fait de pouvoir matcher iaList avec les mots du dico.
-		if(line.matches("["+iaList+"]+")==true && mutualBag.verifLetterMutualBag(line,mutualBag.getMutualBag()) == true){
+		if(line.matches("["+iaList+"]+")==true && size == iaList.length() && mutualBag.verifLetterMutualBag(line,mutualBag.getMutualBag()) == true){
 			System.out.println(line);
 			statPlayer(i, tabPlayer,line);
 			tabPlayer[i].setVal(1);
